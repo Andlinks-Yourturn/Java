@@ -46,7 +46,7 @@ public class ScholarshipInfoDO extends BaseEntity {
         return applyerId;
     }
 
-    public void setApplyId(UserProfileDO applyerId) {
+    public void setApplyerId(UserProfileDO applyerId) {
         this.applyerId = applyerId;
     }
 

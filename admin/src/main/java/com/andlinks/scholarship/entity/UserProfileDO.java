@@ -2,10 +2,9 @@ package com.andlinks.scholarship.entity;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by 陈亚兰 on 2017/8/28.
@@ -34,6 +33,8 @@ public class UserProfileDO extends BaseEntity {
     private int money;//账户金额
 
     private Double gpa;//绩点
+
+    private Set<RoleDO> roles;
 
     @Column(name="user_name")
     public String getUserName() {
@@ -114,5 +115,19 @@ public class UserProfileDO extends BaseEntity {
 
     public void setGpa(Double gpa) {
         this.gpa = gpa;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_role",
+            joinColumns ={ @JoinColumn(name = "user_profile_id", referencedColumnName = "id")},
+            inverseJoinColumns ={ @JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    public Set<RoleDO> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleDO> roles) {
+        this.roles = roles;
     }
 }

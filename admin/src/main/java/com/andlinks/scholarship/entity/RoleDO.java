@@ -1,5 +1,7 @@
 package com.andlinks.scholarship.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -18,6 +20,8 @@ public class RoleDO extends BaseEntity {
     private String roleName;//角色名
 
     private Set<PermissionDO> permissions;
+
+    private Set<UserProfileDO> userProfileDOS;
 
     @Column(name="role_name")
     public String getRoleName() {
@@ -38,6 +42,16 @@ public class RoleDO extends BaseEntity {
 
     public void setPermissions(Set<PermissionDO> permissions) {
         this.permissions = permissions;
+    }
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "roles")
+    public Set<UserProfileDO> getUserProfileDOS() {
+        return userProfileDOS;
+    }
+
+    public void setUserProfileDOS(Set<UserProfileDO> userProfileDOS) {
+        this.userProfileDOS = userProfileDOS;
     }
 
 }
