@@ -14,6 +14,16 @@ public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 8276032533551067004L;
 
+    public static final String ID_PROPERTY_NAME = "id";
+
+    public static final String CREATE_DATE_PROPERTY_NAME = "createDate";
+
+    public static final String MODIFY_DATE_PROPERTY_NAME = "modifyDate";
+
+    public static final String VERSION_PROPERTY_NAME = "version";
+
+    public static final String DELETED_PROPERTY_NAME = "deleted";
+
     private Long id;
 
     private Date createDate;
