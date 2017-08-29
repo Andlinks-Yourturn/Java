@@ -15,7 +15,6 @@ public class ScholarshipInfoDO extends BaseEntity {
         success,
         failure
     }
-    private String name;//姓名
 
     private DonationDO donationId;//项目
 
@@ -23,16 +22,8 @@ public class ScholarshipInfoDO extends BaseEntity {
 
     private ScholarshipInfoDO.Status status;//申请状态
 
-    @Column(name="name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Column(name="donation_id")
+    @ManyToOne
+    @JoinColumn(name="donation_id")
     public DonationDO getDonationId() {
         return donationId;
     }
@@ -41,7 +32,8 @@ public class ScholarshipInfoDO extends BaseEntity {
         this.donationId = donationId;
     }
 
-    @Column(name="applyer_id")
+    @ManyToOne
+    @JoinColumn(name="applyer_id")
     public UserProfileDO getApplyerId() {
         return applyerId;
     }

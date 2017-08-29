@@ -2,13 +2,18 @@ package com.andlinks.scholarship.controller;
 
 import com.andlinks.scholarship.Response;
 import com.andlinks.scholarship.entity.AccountDO;
+import com.andlinks.scholarship.entity.DonationDO;
 import com.andlinks.scholarship.entity.RoleDO;
 import com.andlinks.scholarship.entity.UserProfileDO;
 import com.andlinks.scholarship.entity.vo.RegisterVO;
+import com.andlinks.scholarship.entity.vo.StudentVO;
 import com.andlinks.scholarship.service.AccountService;
+import com.andlinks.scholarship.service.DonationService;
 import com.andlinks.scholarship.service.RoleService;
 import com.andlinks.scholarship.service.UserProfileService;
 import com.andlinks.scholarship.util.I18Utils;
+import com.andlinks.scholarship.util.PasswordUtils;
+import com.andlinks.scholarship.util.annotation.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -38,6 +43,9 @@ public class UserProfileController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private DonationService donationService;
 
     @RequestMapping(method = RequestMethod.POST)
     public Response add(UserProfileDO userProfileDO){
@@ -82,4 +90,53 @@ public class UserProfileController {
         return Response.success(userProfileDO);
     }
 
+    /************************捐款人充值***********************/
+    //TODO
+    @Authority(name="recharge")
+    @RequestMapping(value="/recharge",method = RequestMethod.GET)
+    public Response recharge(String account,String password){
+        AccountDO accountDO=accountService.findByAccount(account);
+        if(accountDO==null){
+            return Response.error(I18Utils.getMessage("Common.Response.Account.NotFound"));
+        }
+        String salt=accountDO.getSalt();
+        if(!PasswordUtils.verifyPassword(password,salt,accountDO.getPassword())){
+            return Response.error(I18Utils.getMessage("Common.Response.AccountPassword.NotRight"));
+        }
+        return Response.success();
+    }
+
+
+    /*************************创建学生************************/
+    @Authority(name="addStudent")
+    @RequestMapping(value="/addStudent",method = RequestMethod.POST)
+    public Response addStudent(@Valid StudentVO studentVO,BindingResult bind){
+        if(bind.hasErrors()){
+            return Response.error(bind.getAllErrors().get(0).getDefaultMessage());
+        }
+        UserProfileDO profileName=userProfileService.findByName(studentVO.getUserName());
+        AccountDO accountName=accountService.findByAccount(studentVO.getUserName());
+        if(profileName!=null||accountName!=null){
+            return Response.error(I18Utils.getMessage("Common.Response.AccountOrUserProfile.HasExist"));
+        }
+        UserProfileDO userProfileDO=studentVO.getUserProfile();
+        Set<RoleDO> roles=new HashSet<>();
+        RoleDO roleDO=roleService.find(3L);
+        roles.add(roleDO);
+        userProfileDO.setRoles(roles);
+        AccountDO accountDO=studentVO.getAccount();
+        accountDO.setAccount(userProfileDO.getUserName());
+        accountDO.setUserProfileDO(userProfileDO);
+        userProfileService.save(userProfileDO);//学生添加到user_profile表中了
+        accountService.save(accountDO);
+        return Response.success(userProfileDO);
+    }
+
+    /************************学生信息***********************/
+    @Authority(name="findStudent")
+    @RequestMapping(value="/listStudent",method = RequestMethod.GET)
+    public Response findAllStudent(@PageableDefault(value=15,sort={"id"},direction = Sort.Direction.DESC)
+                                    Pageable pageable){
+        return Response.success(userProfileService.findByUserType(UserProfileDO.Type.student,pageable));
+    }
 }

@@ -1,5 +1,6 @@
 package com.andlinks.scholarship.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -40,7 +41,13 @@ public class UserProfileDO extends BaseEntity {
 
     private Double gpa;//绩点
 
-    private Set<RoleDO> roles;
+    private int rank;//排名
+
+    private Set<RoleDO> roles;//角色
+
+    private Set<DonationDO> donations;//捐款
+
+    private Set<ScholarshipInfoDO> schs;//奖学金
 
     private UserProfileDO.Type userType;
 
@@ -125,7 +132,16 @@ public class UserProfileDO extends BaseEntity {
         this.gpa = gpa;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @Column(name="rank")
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns ={ @JoinColumn(name = "user_profile_id", referencedColumnName = "id")},
@@ -149,4 +165,24 @@ public class UserProfileDO extends BaseEntity {
         this.userType = userType;
     }
 
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "creator_id",fetch = FetchType.EAGER)
+    public Set<DonationDO> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(Set<DonationDO> donations) {
+        this.donations = donations;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "applyerId",fetch = FetchType.EAGER)
+    public Set<ScholarshipInfoDO> getSchs() {
+        return schs;
+    }
+
+    public void setSchs(Set<ScholarshipInfoDO> schs) {
+        this.schs = schs;
+    }
 }

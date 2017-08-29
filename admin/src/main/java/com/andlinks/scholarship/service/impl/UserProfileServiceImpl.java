@@ -5,7 +5,10 @@ import com.andlinks.scholarship.dao.UserProfileDao;
 import com.andlinks.scholarship.entity.UserProfileDO;
 import com.andlinks.scholarship.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 /**
  * Created by 陈亚兰 on 2017/8/28.
@@ -23,4 +26,11 @@ public class UserProfileServiceImpl extends BaseServiceImpl<UserProfileDO> imple
     public UserProfileDO getCurrentUser() {
         return UserContext.getCurrentUser();
     }
+
+    @Override
+    public Page<UserProfileDO> findByUserType(UserProfileDO.Type type, Pageable pageable) {
+        return profileDao.findByUserType(type,pageable);
+    }
+
+
 }

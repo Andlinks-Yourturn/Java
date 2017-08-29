@@ -97,28 +97,28 @@ public class MyInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
     }
-
     private Boolean hasPermission(HandlerMethod handlerMethod, UserToken userToken) {
-
-        Authority classAuth = handlerMethod.getBeanType().getAnnotation(Authority.class);
-        Authority methodAuth = handlerMethod.getMethodAnnotation(Authority.class);
+        Authority classAuthority = handlerMethod.getBeanType().getAnnotation(
+                Authority.class);
+        Authority methodAuthority = handlerMethod.getMethodAnnotation(Authority.class);
 
         //如果类权限和方法权限都为空，那么可访问
-        if (classAuth == null
-                && methodAuth == null) {
+        if (classAuthority == null
+                && methodAuthority == null) {
             return true;
         }
-
-        //如果类权限和方法权限不都为空，但权限为空，不可访问，因为redisHash不会保存一个空Set
+        //如果类权限和方法权限不都为空，但权限为空，不可访问，这么麻烦的判断是因为redisHash不会保存一个空set
         if (userToken.getPermissions() == null) {
             return false;
         }
-        Set<String> permissions = new HashSet<>();
-        if (classAuth != null) {
-            permissions.add(classAuth.name());
+
+        Set<String> permissions = new HashSet<String>();
+        if (classAuthority != null) {
+            permissions.add(classAuthority.name());
         }
-        if (methodAuth != null) {
-            permissions.add(methodAuth.name());
+
+        if (methodAuthority != null) {
+            permissions.add(methodAuthority.name());
         }
         return userToken.getPermissions().containsAll(permissions);
     }

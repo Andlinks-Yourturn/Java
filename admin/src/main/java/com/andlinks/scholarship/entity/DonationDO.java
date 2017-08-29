@@ -1,10 +1,10 @@
 package com.andlinks.scholarship.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by 陈亚兰 on 2017/8/28.
@@ -16,7 +16,7 @@ public class DonationDO extends BaseEntity {
 
     private static final long serialVersionUID = 4227751602711595172L;
 
-    private String pojectName;//项目名
+    private String projectName;//项目名
 
     private int total_donation;//总额
 
@@ -32,13 +32,17 @@ public class DonationDO extends BaseEntity {
 
     private Double minGPA;//绩点
 
+    private int rank;//排名
+
+    private Set<ScholarshipInfoDO> sch;
+
     @Column(name="project_name")
-    public String getPojectName() {
-        return pojectName;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setPojectName(String pojectName) {
-        this.pojectName = pojectName;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     @Column(name="total_donation")
@@ -59,7 +63,8 @@ public class DonationDO extends BaseEntity {
         this.count = count;
     }
 
-    @Column(name="creator_id")
+    @ManyToOne
+    @JoinColumn(name="creator_id")
     public UserProfileDO getCreator_id() {
         return creator_id;
     }
@@ -102,5 +107,24 @@ public class DonationDO extends BaseEntity {
 
     public void setMinGPA(Double minGPA) {
         this.minGPA = minGPA;
+    }
+
+    @Column(name="rank")
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "donationId",fetch = FetchType.EAGER)
+    public Set<ScholarshipInfoDO> getSch() {
+        return sch;
+    }
+
+    public void setSch(Set<ScholarshipInfoDO> sch) {
+        this.sch = sch;
     }
 }
