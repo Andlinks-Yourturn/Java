@@ -2,9 +2,7 @@ package com.andlinks.scholarship.entity;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by 陈亚兰 on 2017/8/28.
@@ -50,7 +48,8 @@ public class AccountDO extends BaseEntity {
         this.salt = salt;
     }
 
-    @Column(name="user_profile_id")
+    @OneToOne
+    @JoinColumn(name="user_profile_id")
     public UserProfileDO getUserProfileDO() {
         return userProfileDO;
     }

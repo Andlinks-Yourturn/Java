@@ -11,10 +11,16 @@ import java.util.Set;
  */
 @Table(name="sys_user_profile")
 @Entity
-@Where(clause = "deleted")
+@Where(clause = "deleted=0")
 public class UserProfileDO extends BaseEntity {
 
     private static final long serialVersionUID = 1120052331935378981L;
+
+    public enum Type{
+        donor,
+        teacher,
+        student
+    }
 
     private String userName;//用户名
 
@@ -35,6 +41,8 @@ public class UserProfileDO extends BaseEntity {
     private Double gpa;//绩点
 
     private Set<RoleDO> roles;
+
+    private UserProfileDO.Type userType;
 
     @Column(name="user_name")
     public String getUserName() {
@@ -130,4 +138,15 @@ public class UserProfileDO extends BaseEntity {
     public void setRoles(Set<RoleDO> roles) {
         this.roles = roles;
     }
+
+    @Column(name="user_type")
+    @Enumerated(EnumType.STRING)
+    public Type getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Type userType) {
+        this.userType = userType;
+    }
+
 }

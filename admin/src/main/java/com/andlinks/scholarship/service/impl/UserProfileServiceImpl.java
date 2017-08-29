@@ -1,7 +1,10 @@
 package com.andlinks.scholarship.service.impl;
 
+import com.andlinks.scholarship.UserContext;
+import com.andlinks.scholarship.dao.UserProfileDao;
 import com.andlinks.scholarship.entity.UserProfileDO;
 import com.andlinks.scholarship.service.UserProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,4 +12,15 @@ import org.springframework.stereotype.Service;
  */
 @Service("userProfileServiceImpl")
 public class UserProfileServiceImpl extends BaseServiceImpl<UserProfileDO> implements UserProfileService {
+    @Autowired
+    private UserProfileDao profileDao;
+    @Override
+    public UserProfileDO findByName(String userName) {
+        return profileDao.findByUserName(userName);
+    }
+
+    @Override
+    public UserProfileDO getCurrentUser() {
+        return UserContext.getCurrentUser();
+    }
 }
