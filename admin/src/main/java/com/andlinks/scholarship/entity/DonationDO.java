@@ -1,6 +1,8 @@
 package com.andlinks.scholarship.entity;
 
+import com.andlinks.scholarship.entity.vo.CompareVO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -18,11 +20,13 @@ public class DonationDO extends BaseEntity {
 
     private String projectName;//项目名
 
-    private int total_donation;//总额
+    private int totalDonation;//总额
 
     private int count;//名额
 
-    private UserProfileDO creator_id;//创建人
+    private int unitPrice;//单价
+
+    private UserProfileDO creator;//创建人
 
     private String keyword;//关键字
 
@@ -34,7 +38,13 @@ public class DonationDO extends BaseEntity {
 
     private int rank;//排名
 
-    private Set<ScholarshipInfoDO> sch;
+    private String address;//项目地址
+
+    private Set<ScholarshipInfoDO> sch;//可以通过Donation查到的字段
+
+    private CompareVO compareVO;//比较
+
+    private String proDocAddress;//项目文件地址
 
     @Column(name="project_name")
     public String getProjectName() {
@@ -45,13 +55,15 @@ public class DonationDO extends BaseEntity {
         this.projectName = projectName;
     }
 
+
+
     @Column(name="total_donation")
-    public int getTotal_donation() {
-        return total_donation;
+    public int getTotalDonation() {
+        return totalDonation;
     }
 
-    public void setTotal_donation(int total_donation) {
-        this.total_donation = total_donation;
+    public void setTotalDonation(int totalDonation) {
+        this.totalDonation = totalDonation;
     }
 
     @Column(name="count")
@@ -63,14 +75,23 @@ public class DonationDO extends BaseEntity {
         this.count = count;
     }
 
-    @ManyToOne
-    @JoinColumn(name="creator_id")
-    public UserProfileDO getCreator_id() {
-        return creator_id;
+    @Column(name="unit_price")
+    public int getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setCreator_id(UserProfileDO creator_id) {
-        this.creator_id = creator_id;
+    public void setUnitPrice(int unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="creator_id")
+    public UserProfileDO getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserProfileDO creator) {
+        this.creator = creator;
     }
 
     @Column(name="keyword")
@@ -118,7 +139,24 @@ public class DonationDO extends BaseEntity {
         this.rank = rank;
     }
 
-    @JsonBackReference
+    @Column(name="pro_address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Column(name="doc_address")
+    public String getProDocAddress() {
+        return proDocAddress;
+    }
+
+    public void setProDocAddress(String proDocAddress) {
+        this.proDocAddress = proDocAddress;
+    }
+
     @OneToMany(mappedBy = "donationId",fetch = FetchType.EAGER)
     public Set<ScholarshipInfoDO> getSch() {
         return sch;
@@ -127,4 +165,15 @@ public class DonationDO extends BaseEntity {
     public void setSch(Set<ScholarshipInfoDO> sch) {
         this.sch = sch;
     }
+
+    @Transient
+    public CompareVO getCompareVO() {
+        return compareVO;
+    }
+
+    public void setCompareVO(CompareVO compareVO) {
+        this.compareVO = compareVO;
+    }
+
+
 }

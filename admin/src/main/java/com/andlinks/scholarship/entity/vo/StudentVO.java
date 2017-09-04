@@ -3,6 +3,7 @@ package com.andlinks.scholarship.entity.vo;
 import com.andlinks.scholarship.entity.AccountDO;
 import com.andlinks.scholarship.entity.UserProfileDO;
 import com.andlinks.scholarship.util.PasswordUtils;
+import com.andlinks.scholarship.util.annotation.AgeUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,13 +22,15 @@ public class StudentVO implements Serializable{
 
     private String userName;//用户名
 
+    private String firstName;//名
+
+    private String lastName;//姓
+
     private String password;//密码
 
     private Date birthday;//出生日期
 
     private int age;//年龄
-
-    private String className;//班级名
 
     private String major;//专业
 
@@ -35,6 +38,15 @@ public class StudentVO implements Serializable{
 
     private int rank;//排名
 
+    private CompareVO compareVO;//比较信息
+
+    public CompareVO getCompareVO() {
+        return compareVO;
+    }
+
+    public void setCompareVO(CompareVO compareVO) {
+        this.compareVO = compareVO;
+    }
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getBirthday() {
         return birthday;
@@ -51,15 +63,6 @@ public class StudentVO implements Serializable{
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     @NotNull
@@ -110,17 +113,40 @@ public class StudentVO implements Serializable{
         this.password = password;
     }
 
+    @NotNull
+    @Size(min=2,max=20)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @NotNull
+    @Size(min=2,max=20)
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public UserProfileDO getUserProfile(){
         UserProfileDO userProfileDO=new UserProfileDO();
         userProfileDO.setUserName(getUserName());
         userProfileDO.setUserType(UserProfileDO.Type.student);
         userProfileDO.setBirthday(getBirthday());
-        userProfileDO.setAge(getAge());
-        userProfileDO.setClassName(getClassName());
+        int age= AgeUtils.getAge(getBirthday());
+        CompareVO compareVO=new CompareVO(age,getMajor(),getRank(),getGpa());
+        userProfileDO.setCompareVO(compareVO);
+        userProfileDO.setAge(age);
         userProfileDO.setGpa(getGpa());
         userProfileDO.setRank(getRank());
         userProfileDO.setMajor(getMajor());
+        userProfileDO.setFirstName(getFirstName());
+        userProfileDO.setLastName(getLastName());
         return userProfileDO;
     }
 
@@ -132,4 +158,6 @@ public class StudentVO implements Serializable{
         account.setSalt(salt);
         return account;
     }
+
+
 }

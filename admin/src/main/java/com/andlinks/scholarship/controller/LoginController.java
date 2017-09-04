@@ -11,7 +11,6 @@ import com.andlinks.scholarship.service.redis.UserTokenService;
 import com.andlinks.scholarship.util.I18Utils;
 import com.andlinks.scholarship.util.PasswordUtils;
 import com.andlinks.scholarship.util.annotation.HttpUtils;
-import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.relation.Role;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashSet;

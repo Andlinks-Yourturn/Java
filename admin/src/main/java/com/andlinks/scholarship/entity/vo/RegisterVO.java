@@ -9,8 +9,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by 陈亚兰 on 2017/8/29.
@@ -20,12 +18,10 @@ public class RegisterVO implements Serializable{
 
     private String userName;
     private String password;
-    private String telephone;
-    private int money;
-
+    private String linkPass;
 
     @NotNull
-    @Size(min=6,max=20)
+    @Size(min=2,max=20)
     public String getUserName() {
         return userName;
     }
@@ -40,32 +36,24 @@ public class RegisterVO implements Serializable{
         return password;
     }
 
+    @NotNull
+    public String getLinkPass() {
+        return linkPass;
+    }
+
+    public void setLinkPass(String linkPass) {
+        this.linkPass = linkPass;
+    }
+
     public void setPassword(String password) {
         this.password = password;
-    }
-    @NotNull
-    @Size(min=6,max=16)
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
     }
 
     public UserProfileDO getUserProfile(){
         UserProfileDO userProfileDO=new UserProfileDO();
         userProfileDO.setUserName(getUserName());
         userProfileDO.setUserType(UserProfileDO.Type.donor);
+        userProfileDO.setLinkPass(getLinkPass());
         return userProfileDO;
     }
 
@@ -77,4 +65,5 @@ public class RegisterVO implements Serializable{
         account.setSalt(salt);
         return account;
     }
+
 }

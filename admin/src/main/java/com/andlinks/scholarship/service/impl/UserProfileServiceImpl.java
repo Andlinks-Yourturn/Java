@@ -2,6 +2,7 @@ package com.andlinks.scholarship.service.impl;
 
 import com.andlinks.scholarship.UserContext;
 import com.andlinks.scholarship.dao.UserProfileDao;
+import com.andlinks.scholarship.entity.DonationDO;
 import com.andlinks.scholarship.entity.UserProfileDO;
 import com.andlinks.scholarship.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,21 @@ public class UserProfileServiceImpl extends BaseServiceImpl<UserProfileDO> imple
     @Override
     public Page<UserProfileDO> findByUserType(UserProfileDO.Type type, Pageable pageable) {
         return profileDao.findByUserType(type,pageable);
+    }
+
+    @Override
+    public Page<UserProfileDO> findByTeacher(UserProfileDO userProfileDO, Pageable pageable) {
+        return profileDao.findByTeacher(userProfileDO,pageable);
+    }
+
+    @Override
+    public Page<UserProfileDO> findByTeacherIsNot(UserProfileDO userProfileDO, Pageable pageable) {
+        return profileDao.findByTeacherIsNot(userProfileDO,pageable);
+    }
+
+    @Override
+    public UserProfileDO findByAddress(String address) {
+        return profileDao.findByAddress(address);
     }
 
 

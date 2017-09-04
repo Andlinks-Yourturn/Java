@@ -1,5 +1,6 @@
 package com.andlinks.scholarship.entity;
 
+import com.andlinks.scholarship.entity.vo.CompareVO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Where;
 
@@ -10,14 +11,14 @@ import java.util.Set;
 /**
  * Created by 陈亚兰 on 2017/8/28.
  */
-@Table(name="sys_user_profile")
+@Table(name = "sys_user_profile")
 @Entity
 @Where(clause = "deleted=0")
 public class UserProfileDO extends BaseEntity {
 
     private static final long serialVersionUID = 1120052331935378981L;
 
-    public enum Type{
+    public enum Type {
         donor,
         teacher,
         student
@@ -25,15 +26,17 @@ public class UserProfileDO extends BaseEntity {
 
     private String userName;//用户名
 
+    private String firstName;//名
+
+    private String lastName;//姓
+
+    private String linkPass;//操作码
+
     private Date birthday;//出生日期
 
-    private String address;//地址
+    private String address;//学生地址
 
     private int age;//年龄
-
-    private String telephone;//电话
-
-    private String className;//班级名
 
     private String major;//专业
 
@@ -49,9 +52,15 @@ public class UserProfileDO extends BaseEntity {
 
     private Set<ScholarshipInfoDO> schs;//奖学金
 
+    private UserProfileDO teacher;//你的老师
+
     private UserProfileDO.Type userType;
 
-    @Column(name="user_name")
+    private CompareVO compareVO;//条件
+
+    private String docAddress;//学生信息存放的文件Hash地址
+
+    @Column(name = "user_name")
     public String getUserName() {
         return userName;
     }
@@ -60,7 +69,25 @@ public class UserProfileDO extends BaseEntity {
         this.userName = userName;
     }
 
-    @Column(name="birth")
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Column(name = "last_name")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "birth")
     public Date getBirthday() {
         return birthday;
     }
@@ -69,7 +96,7 @@ public class UserProfileDO extends BaseEntity {
         this.birthday = birthday;
     }
 
-    @Column(name="address")
+    @Column(name = "address")
     public String getAddress() {
         return address;
     }
@@ -78,7 +105,7 @@ public class UserProfileDO extends BaseEntity {
         this.address = address;
     }
 
-    @Column(name="age")
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
@@ -87,25 +114,7 @@ public class UserProfileDO extends BaseEntity {
         this.age = age;
     }
 
-    @Column(name="telephone")
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    @Column(name="class_name")
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    @Column(name="major")
+    @Column(name = "major")
     public String getMajor() {
         return major;
     }
@@ -114,7 +123,7 @@ public class UserProfileDO extends BaseEntity {
         this.major = major;
     }
 
-    @Column(name="money")
+    @Column(name = "money")
     public int getMoney() {
         return money;
     }
@@ -123,7 +132,7 @@ public class UserProfileDO extends BaseEntity {
         this.money = money;
     }
 
-    @Column(name="gpa")
+    @Column(name = "gpa")
     public Double getGpa() {
         return gpa;
     }
@@ -132,7 +141,7 @@ public class UserProfileDO extends BaseEntity {
         this.gpa = gpa;
     }
 
-    @Column(name="rank")
+    @Column(name = "rank")
     public int getRank() {
         return rank;
     }
@@ -141,11 +150,20 @@ public class UserProfileDO extends BaseEntity {
         this.rank = rank;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @Column(name="link_pass")
+    public String getLinkPass() {
+        return linkPass;
+    }
+
+    public void setLinkPass(String linkPass) {
+        this.linkPass = linkPass;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
-            joinColumns ={ @JoinColumn(name = "user_profile_id", referencedColumnName = "id")},
-            inverseJoinColumns ={ @JoinColumn(name = "role_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "user_profile_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     public Set<RoleDO> getRoles() {
         return roles;
@@ -155,7 +173,7 @@ public class UserProfileDO extends BaseEntity {
         this.roles = roles;
     }
 
-    @Column(name="user_type")
+    @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     public Type getUserType() {
         return userType;
@@ -165,9 +183,17 @@ public class UserProfileDO extends BaseEntity {
         this.userType = userType;
     }
 
+    @Column(name="doc_address")
+    public String getDocAddress() {
+        return docAddress;
+    }
+
+    public void setDocAddress(String docAddress) {
+        this.docAddress = docAddress;
+    }
 
     @JsonBackReference
-    @OneToMany(mappedBy = "creator_id",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "creator", fetch = FetchType.EAGER)
     public Set<DonationDO> getDonations() {
         return donations;
     }
@@ -177,12 +203,33 @@ public class UserProfileDO extends BaseEntity {
     }
 
     @JsonBackReference
-    @OneToMany(mappedBy = "applyerId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "applyerId", fetch = FetchType.EAGER)
     public Set<ScholarshipInfoDO> getSchs() {
         return schs;
     }
 
     public void setSchs(Set<ScholarshipInfoDO> schs) {
         this.schs = schs;
+    }
+
+
+
+    public CompareVO getCompareVO() {
+        return compareVO;
+    }
+
+    public void setCompareVO(CompareVO compareVO) {
+        this.compareVO = compareVO;
+    }
+
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name="teacher_id")
+    public UserProfileDO getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(UserProfileDO teacher) {
+        this.teacher = teacher;
     }
 }
