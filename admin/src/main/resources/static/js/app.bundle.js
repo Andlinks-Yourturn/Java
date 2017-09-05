@@ -4543,7 +4543,7 @@ var _create = __webpack_require__(368);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _typeof2 = __webpack_require__(77);
+var _typeof2 = __webpack_require__(78);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -4574,7 +4574,7 @@ exports.default = function (subClass, superClass) {
 
 exports.__esModule = true;
 
-var _typeof2 = __webpack_require__(77);
+var _typeof2 = __webpack_require__(78);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -5599,7 +5599,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _typeof2 = __webpack_require__(77);
+var _typeof2 = __webpack_require__(78);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -5656,7 +5656,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(104)('wks');
-var uid = __webpack_require__(80);
+var uid = __webpack_require__(81);
 var Symbol = __webpack_require__(39).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -5682,7 +5682,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _typeof2 = __webpack_require__(77);
+var _typeof2 = __webpack_require__(78);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -5824,7 +5824,7 @@ var IE8_DOM_DEFINE = __webpack_require__(157);
 var toPrimitive = __webpack_require__(106);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(46) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(47) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -5949,7 +5949,8 @@ exports.default = Frame;
 
 /***/ }),
 /* 45 */,
-/* 46 */
+/* 46 */,
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
@@ -5959,7 +5960,7 @@ module.exports = !__webpack_require__(54)(function () {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -5969,7 +5970,7 @@ module.exports = function (it, key) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
@@ -5981,14 +5982,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(64);
+var isObject = __webpack_require__(65);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -6013,8 +6013,8 @@ module.exports = function (exec) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(40);
-var createDesc = __webpack_require__(67);
-module.exports = __webpack_require__(46) ? function (object, key, value) {
+var createDesc = __webpack_require__(68);
+module.exports = __webpack_require__(47) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -6027,6 +6027,82 @@ module.exports = __webpack_require__(46) ? function (object, key, value) {
 /* 57 */,
 /* 58 */,
 /* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(11), RootInstanceProvider = __webpack_require__(12), ReactMount = __webpack_require__(4), React = __webpack_require__(0); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.goToPage = exports.setBalance = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _ajax = __webpack_require__(60);
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * @description 余额
+ * @param param
+ * @returns {Object}
+ */
+function fetchBalance(param) {
+    return (0, _ajax.AJAX)({
+        url: '/api/user/balance',
+        type: _ajax.HttpMethod.GET,
+        data: param || null
+    });
+}
+
+/**
+ * @description 设置State中的余额值
+ * @param name
+ */
+function setBalance(name) {
+    var _this = this;
+
+    fetchBalance().then(function (res) {
+        if (res.status === 'SUCCESS' && res.result) {
+            _this.setState(_defineProperty({}, name, res.result.balance));
+        }
+
+        if (res.status === 'ERROR') {
+            console.error('获取余额错误！');
+        }
+    });
+}
+
+/**
+ * @description 分页
+ * @param pageInfo
+ * @param callback
+ * @returns {boolean|Function}
+ */
+function goToPage(pageInfo, callback) {
+    if (pageInfo.current) {
+        return typeof callback === 'function' && function (queryParam, successCb, errorCb) {
+            if ((typeof queryParam === 'undefined' ? 'undefined' : _typeof(queryParam)) === 'object') {
+                if (queryParam.page !== undefined) {
+                    queryParam.page = pageInfo.current - 1;
+                }
+                queryParam = Object.assign({}, queryParam, { page: pageInfo.current - 1 });
+                callback(queryParam)(successCb, errorCb);
+            }
+        };
+    }
+}
+
+exports.setBalance = setBalance;
+exports.goToPage = goToPage;
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(13); if (makeExportsHot(module, __webpack_require__(0))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "common.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(11), RootInstanceProvider = __webpack_require__(12), ReactMount = __webpack_require__(4), React = __webpack_require__(0); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -6055,7 +6131,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _index = __webpack_require__(23);
 
-var _util = __webpack_require__(75);
+var _util = __webpack_require__(76);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6251,11 +6327,11 @@ function AJAX(_ref) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
 
 /***/ }),
-/* 60 */,
 /* 61 */,
 /* 62 */,
 /* 63 */,
-/* 64 */
+/* 64 */,
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -6264,14 +6340,14 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
@@ -6284,7 +6360,7 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -6298,7 +6374,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6386,12 +6462,12 @@ var _temp = function () {
 //# sourceMappingURL=triggerBlank.js.map
 
 /***/ }),
-/* 69 */,
 /* 70 */,
 /* 71 */,
 /* 72 */,
 /* 73 */,
-/* 74 */
+/* 74 */,
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(11), RootInstanceProvider = __webpack_require__(12), ReactMount = __webpack_require__(4), React = __webpack_require__(0); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -6403,7 +6479,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchBenefit = exports.donateForProject = exports.fetchAllProjectList = exports.fetchMyProjectList = exports.recharge = exports.addProject = undefined;
 
-var _ajax = __webpack_require__(59);
+var _ajax = __webpack_require__(60);
 
 /**
  * @description 增加项目
@@ -6496,7 +6572,7 @@ exports.fetchBenefit = fetchBenefit;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(11), RootInstanceProvider = __webpack_require__(12), ReactMount = __webpack_require__(4), React = __webpack_require__(0); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -6776,8 +6852,8 @@ function getDateStringFromUnix(value) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
 
 /***/ }),
-/* 76 */,
-/* 77 */
+/* 77 */,
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6804,14 +6880,14 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 };
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -6822,7 +6898,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -6833,10 +6909,10 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 81 */,
 /* 82 */,
 /* 83 */,
-/* 84 */
+/* 84 */,
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7385,64 +7461,12 @@ var _temp = function () {
 //# sourceMappingURL=dateCore.js.map
 
 /***/ }),
-/* 85 */,
 /* 86 */,
 /* 87 */,
 /* 88 */,
 /* 89 */,
 /* 90 */,
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(11), RootInstanceProvider = __webpack_require__(12), ReactMount = __webpack_require__(4), React = __webpack_require__(0); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _ajax = __webpack_require__(59);
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/**
- * @description 余额
- * @param param
- * @returns {Object}
- */
-function fetchBalance(param) {
-    return (0, _ajax.AJAX)({
-        url: '/api/user/balance',
-        type: _ajax.HttpMethod.GET,
-        data: param || null
-    });
-}
-
-/**
- * @description 设置State中的余额值
- * @param name
- */
-function setBalance(name) {
-    var _this = this;
-
-    fetchBalance().then(function (res) {
-        if (res.status === 'SUCCESS' && res.result) {
-            _this.setState(_defineProperty({}, name, res.result.balance));
-        }
-
-        if (res.status === 'ERROR') {
-            console.error('获取余额错误！');
-        }
-    });
-}
-
-exports.default = setBalance;
-
-/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(13); if (makeExportsHot(module, __webpack_require__(0))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "common.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
-
-/***/ }),
+/* 91 */,
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7639,7 +7663,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(69)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(70)))
 
 /***/ }),
 /* 95 */
@@ -7765,7 +7789,7 @@ exports.f = Object.getOwnPropertySymbols;
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(40).f;
-var has = __webpack_require__(47);
+var has = __webpack_require__(48);
 var TAG = __webpack_require__(32)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -7778,7 +7802,7 @@ module.exports = function (it, tag, stat) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(104)('keys');
-var uid = __webpack_require__(80);
+var uid = __webpack_require__(81);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -7813,7 +7837,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(64);
+var isObject = __webpack_require__(65);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -7913,7 +7937,7 @@ exports = module.exports = __webpack_require__(21)();
 
 
 // module
-exports.push([module.i, "::-webkit-scrollbar {\n  width: 5px;\n  height: 12px;\n  background-color: #1e2f51 !important; }\n\n::-webkit-scrollbar-thumb {\n  background: #272727; }\n\n::-webkit-scrollbar-track {\n  background: #1e2f51; }\n\nhtml {\n  font-size: 20px;\n  height: 100%; }\n\n* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.app {\n  height: 100%;\n  min-height: 100vh; }\n\n.app-frame .left-box {\n  overflow: hidden; }\n\n.app-frame .right-box {\n  margin-left: 230px;\n  background-color: #F5F8FA;\n  min-height: 100vh; }\n  .app-frame .right-box .app-header {\n    height: 3.2rem;\n    line-height: 3.2rem;\n    padding-left: 1.3rem;\n    border-bottom: 2px solid #D3D6D6;\n    background-color: #fff; }\n    .app-frame .right-box .app-header .iconfont {\n      font-size: 0.9rem;\n      margin-right: 0.5rem;\n      color: #5585FE; }\n  .app-frame .right-box .content-box {\n    padding: 1.3rem; }\n\n.app-sidebar {\n  position: fixed;\n  top: 0px;\n  bottom: 0px;\n  width: 230px;\n  color: #fff;\n  background: transparent url(" + __webpack_require__(630) + ") no-repeat scroll 0 0/cover; }\n  .app-sidebar .logo {\n    padding: 1.2rem;\n    text-align: center; }\n    .app-sidebar .logo > a {\n      color: #fff;\n      font-weight: bolder; }\n  .app-sidebar .avatar-container {\n    padding: 1rem 0 2.8rem;\n    padding-left: 2.5rem; }\n    .app-sidebar .avatar-container .header-circle {\n      border-radius: 50%;\n      width: 3.3rem;\n      height: 3.3rem;\n      float: left; }\n      .app-sidebar .avatar-container .header-circle > img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%; }\n    .app-sidebar .avatar-container .user-box {\n      margin-left: 4rem;\n      font-size: 0.8rem;\n      margin-top: 0.8rem; }\n      .app-sidebar .avatar-container .user-box > span {\n        display: block;\n        padding-bottom: 0.2rem; }\n      .app-sidebar .avatar-container .user-box .user-identity {\n        font-size: 0.65rem;\n        color: rgba(255, 255, 255, 0.8); }\n  .app-sidebar .navlist li > a {\n    display: block;\n    padding: 0.75rem 0;\n    padding-left: 2.6rem;\n    text-align: left;\n    color: rgba(255, 255, 255, 0.85);\n    font-family: \"Microsoft YaHei\"; }\n    .app-sidebar .navlist li > a.active {\n      border-top: 1px solid #194370;\n      border-bottom: 1px solid #194370;\n      border-left: 6px solid #5585FE; }\n      .app-sidebar .navlist li > a.active i {\n        margin-left: -6px; }\n    .app-sidebar .navlist li > a > i {\n      display: inline-block;\n      vertical-align: middle;\n      font-size: 1rem;\n      color: #5584FF;\n      margin-top: -4px;\n      margin-right: 0.8rem; }\n\n.mt-div .mt-select .mt-select-option {\n  padding: 6px 2px 6px 0.4rem; }\n  .mt-div .mt-select .mt-select-option:hover {\n    background-color: #5585FE; }\n\n.mt-table th,\n.mt-table td {\n  border-color: #B3B3B3;\n  border-width: 1px; }\n", ""]);
+exports.push([module.i, "::-webkit-scrollbar {\n  width: 5px;\n  height: 12px;\n  background-color: #1e2f51 !important; }\n\n::-webkit-scrollbar-thumb {\n  background: #272727; }\n\n::-webkit-scrollbar-track {\n  background: #1e2f51; }\n\nhtml {\n  font-size: 20px;\n  height: 100%; }\n\n* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.app {\n  height: 100%;\n  min-height: 100vh; }\n\n.app-frame .left-box {\n  overflow: hidden; }\n\n.app-frame .right-box {\n  margin-left: 230px;\n  background-color: #F5F8FA;\n  min-height: 100vh; }\n  .app-frame .right-box .app-header {\n    height: 3.2rem;\n    line-height: 3.2rem;\n    padding-left: 1.3rem;\n    border-bottom: 2px solid #D3D6D6;\n    background-color: #fff; }\n    .app-frame .right-box .app-header .iconfont {\n      font-size: 0.9rem;\n      margin-right: 0.5rem;\n      color: #5585FE; }\n  .app-frame .right-box .content-box {\n    padding: 1.3rem; }\n\n.app-sidebar {\n  position: fixed;\n  top: 0px;\n  bottom: 0px;\n  width: 230px;\n  color: #fff;\n  background: transparent url(" + __webpack_require__(630) + ") no-repeat scroll 0 0/cover; }\n  .app-sidebar .logo {\n    padding: 1.2rem;\n    text-align: center; }\n    .app-sidebar .logo > a {\n      color: #fff;\n      font-weight: bolder; }\n  .app-sidebar .avatar-container {\n    padding: 1rem 0 2.8rem;\n    padding-left: 2.5rem; }\n    .app-sidebar .avatar-container .header-circle {\n      border-radius: 50%;\n      width: 3.3rem;\n      height: 3.3rem;\n      float: left; }\n      .app-sidebar .avatar-container .header-circle > img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%; }\n    .app-sidebar .avatar-container .user-box {\n      margin-left: 4rem;\n      font-size: 0.8rem;\n      margin-top: 0.8rem; }\n      .app-sidebar .avatar-container .user-box > span {\n        display: block;\n        padding-bottom: 0.2rem; }\n      .app-sidebar .avatar-container .user-box .user-identity {\n        font-size: 0.65rem;\n        color: rgba(255, 255, 255, 0.8); }\n  .app-sidebar .navlist li > a {\n    display: block;\n    padding: 0.75rem 0;\n    padding-left: 2.6rem;\n    text-align: left;\n    color: rgba(255, 255, 255, 0.85);\n    font-family: \"Microsoft YaHei\"; }\n    .app-sidebar .navlist li > a.active {\n      border-top: 1px solid #194370;\n      border-bottom: 1px solid #194370;\n      border-left: 6px solid #5585FE; }\n      .app-sidebar .navlist li > a.active i {\n        margin-left: -6px; }\n    .app-sidebar .navlist li > a > i {\n      display: inline-block;\n      vertical-align: middle;\n      font-size: 1rem;\n      color: #5584FF;\n      margin-top: -4px;\n      margin-right: 0.8rem; }\n\n.mt-div .mt-select .mt-select-option {\n  padding: 6px 2px 6px 0.4rem; }\n  .mt-div .mt-select .mt-select-option:hover {\n    background-color: #5585FE; }\n\n.mt-table th,\n.mt-table td {\n  border-color: #B3B3B3;\n  border-width: 1px; }\n\n.mt-pagelist {\n  display: block;\n  text-align: center;\n  margin-top: 1.5rem; }\n  .mt-pagelist .active a {\n    border-color: #5585FE;\n    background-color: #5585FE; }\n\n.mt-validate-danger .mt-validate-info, .mt-validate-warning .mt-validate-info {\n  text-align: left; }\n", ""]);
 
 // exports
 
@@ -8105,7 +8129,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.applyProject = exports.fetchNoApplyList = exports.fetchSuccessApplyList = exports.addStudent = undefined;
 
-var _ajax = __webpack_require__(59);
+var _ajax = __webpack_require__(60);
 
 /**
  * @description 增加学生
@@ -8442,7 +8466,7 @@ module.exports = function bind(fn, thisArg) {
 /* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(64);
+var isObject = __webpack_require__(65);
 var document = __webpack_require__(39).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
@@ -8455,7 +8479,7 @@ module.exports = function (it) {
 /* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(46) && !__webpack_require__(54)(function () {
+module.exports = !__webpack_require__(47) && !__webpack_require__(54)(function () {
   return Object.defineProperty(__webpack_require__(156)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -8482,8 +8506,8 @@ var LIBRARY = __webpack_require__(99);
 var $export = __webpack_require__(38);
 var redefine = __webpack_require__(164);
 var hide = __webpack_require__(55);
-var has = __webpack_require__(47);
-var Iterators = __webpack_require__(65);
+var has = __webpack_require__(48);
+var Iterators = __webpack_require__(66);
 var $iterCreate = __webpack_require__(391);
 var setToStringTag = __webpack_require__(102);
 var getPrototypeOf = __webpack_require__(162);
@@ -8553,15 +8577,15 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 /* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(78);
-var createDesc = __webpack_require__(67);
-var toIObject = __webpack_require__(48);
+var pIE = __webpack_require__(79);
+var createDesc = __webpack_require__(68);
+var toIObject = __webpack_require__(49);
 var toPrimitive = __webpack_require__(106);
-var has = __webpack_require__(47);
+var has = __webpack_require__(48);
 var IE8_DOM_DEFINE = __webpack_require__(157);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(46) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(47) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -8589,8 +8613,8 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(47);
-var toObject = __webpack_require__(79);
+var has = __webpack_require__(48);
+var toObject = __webpack_require__(80);
 var IE_PROTO = __webpack_require__(103)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -8607,8 +8631,8 @@ module.exports = Object.getPrototypeOf || function (O) {
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(47);
-var toIObject = __webpack_require__(48);
+var has = __webpack_require__(48);
+var toIObject = __webpack_require__(49);
 var arrayIndexOf = __webpack_require__(383)(false);
 var IE_PROTO = __webpack_require__(103)('IE_PROTO');
 
@@ -19791,7 +19815,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dateCore = __webpack_require__(84);
+var _dateCore = __webpack_require__(85);
 
 var _assign = __webpack_require__(28);
 
@@ -20397,7 +20421,7 @@ var _dom = __webpack_require__(42);
 
 var _offset = __webpack_require__(36);
 
-var _triggerBlank = __webpack_require__(68);
+var _triggerBlank = __webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21447,9 +21471,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _index = __webpack_require__(23);
 
-var _util = __webpack_require__(75);
+var _util = __webpack_require__(76);
 
-var _donator = __webpack_require__(74);
+var _donator = __webpack_require__(75);
+
+var _common = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21470,15 +21496,21 @@ var DonatorContentBody = function (_Component) {
         var _this = _possibleConstructorReturn(this, (DonatorContentBody.__proto__ || Object.getPrototypeOf(DonatorContentBody)).call(this, props));
 
         _this.state = {
-            checkedProject: null,
-            showProjectMore: false,
+            checkedProject: null, // 已经选择项目
+            showProjectMore: false, // 显示更多项目
             projectBenefits: null, // 项目受益者
-            formData: {},
-            selectedIndex: null // 选择的项目下标
+            formData: {}, // 表单数据
+            selectedIndex: null, // 选择的项目下标
+            isAsc: true // 是否是升序，默认是升序
         };
 
         _this.inputChange = _this.inputChange.bind(_this);
         _this.searchProjectList = _this.searchProjectList.bind(_this);
+
+        _this.refsPageList = null;
+
+        _this.queryParam = { page: 1 }; // 查询参数
+        _this.callback = _this.props.callback; // 回调函数
         return _this;
     }
 
@@ -21575,12 +21607,46 @@ var DonatorContentBody = function (_Component) {
     }, {
         key: 'searchProjectList',
         value: function searchProjectList() {
-            var callback = this.props.callback;
-
-            if (this.searchText === undefined) {
-                this.searchText = '';
+            var queryParam = null;
+            if (this.searchText !== undefined) {
+                queryParam = { input: this.searchText };
+                this.queryParam.input = this.searchText;
             }
-            this.props.getProjectList({ input: this.searchText })(callback.successCallback, callback.errorCallback);
+            this.props.getProjectList(queryParam)(this.callback.successCallback, this.callback.errorCallback);
+
+            this.refsPageList.refresh();
+        }
+
+        // 根据时间或项目金额排序列表
+
+    }, {
+        key: 'sortProjectBy',
+        value: function sortProjectBy(sortKeyword, sortDirection) {
+
+            if (this.searchText !== undefined && this.searchText.trim() !== '') {
+                this.queryParam.input = this.searchText;
+            }
+
+            if (sortDirection && sortKeyword) {
+                this.queryParam.sort = sortKeyword + ',' + sortDirection;
+            }
+
+            this.setState({
+                isAsc: !this.state.isAsc
+            });
+
+            this.props.getProjectList(this.queryParam)(this.callback.successCallback, this.callback.errorCallback);
+        }
+
+        // 分页跳转
+
+    }, {
+        key: 'goToPage',
+        value: function goToPage(pageInfo) {
+
+            if (pageInfo) {
+                _common.goToPage.apply(this, [pageInfo, this.props.getProjectList])(this.queryParam, this.callback.successCallback, this.callback.errorCallback);
+            }
         }
     }, {
         key: 'render',
@@ -21591,7 +21657,8 @@ var DonatorContentBody = function (_Component) {
                 panelHeader = _props.panelHeader,
                 tableData = _props.tableData,
                 buttonName = _props.buttonName,
-                balance = _props.balance;
+                balance = _props.balance,
+                projectNum = _props.projectNum;
             var tableHeader = tableData.tableHeader,
                 tableBody = tableData.tableBody;
             var projectList = tableBody.projectList,
@@ -21631,7 +21698,7 @@ var DonatorContentBody = function (_Component) {
                                             { key: index },
                                             _react2.default.createElement(
                                                 'div',
-                                                { className: 'sort-box' },
+                                                { className: 'sort-box', onClick: _this4.sortProjectBy.bind(_this4, columnName.sortValue, _this4.state.isAsc ? 'asc' : 'desc') },
                                                 columnName.name,
                                                 columnName.sort && _react2.default.createElement('i', { className: 'sort-icon' })
                                             )
@@ -21688,7 +21755,10 @@ var DonatorContentBody = function (_Component) {
                                 );
                             })
                         )
-                    )
+                    ),
+                    _react2.default.createElement(_index.PageList, { current: 1, pageSize: 10, callback: this.goToPage.bind(this), total: projectNum, ref: function ref(c) {
+                            _this4.refsPageList = c;
+                        } })
                 ),
                 this.state.checkedProject && _react2.default.createElement(
                     _index.Button,
@@ -21851,11 +21921,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _index = __webpack_require__(23);
 
-var _donator = __webpack_require__(74);
+var _donator = __webpack_require__(75);
 
-var _common = __webpack_require__(91);
-
-var _common2 = _interopRequireDefault(_common);
+var _common = __webpack_require__(59);
 
 __webpack_require__(623);
 
@@ -21880,7 +21948,7 @@ var DonatorContentHeader = function (_Component) {
         _this.state = {
             myProjectList: [],
             rechargeFormData: {},
-            donatorBalance: _this.props.balance
+            donatorBalance: props.balance
         };
 
         _this.inputChange = _this.inputChange.bind(_this);
@@ -21890,9 +21958,10 @@ var DonatorContentHeader = function (_Component) {
     _createClass(DonatorContentHeader, [{
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (nextProps.donatorBalance !== this.props.balance) {
+
+            if (nextProps.balance !== this.props.balance) {
                 this.setState({
-                    donatorBalance: this.props.balance
+                    donatorBalance: nextProps.balance
                 });
             }
         }
@@ -21926,7 +21995,7 @@ var DonatorContentHeader = function (_Component) {
             (0, _donator.recharge)(this.state.rechargeFormData).then(function (res) {
                 if (res.status === 'SUCCESS' && res.result) {
                     // 更新账户余额数字
-                    _common2.default.call(_this2, 'donatorBalance');
+                    _common.setBalance.call(_this2, 'donatorBalance');
                     _this2.refs[refName].showModal(false);
                 }
 
@@ -22061,7 +22130,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _index = __webpack_require__(23);
 
-var _util = __webpack_require__(75);
+var _util = __webpack_require__(76);
+
+var _common = __webpack_require__(59);
 
 __webpack_require__(344);
 
@@ -22112,6 +22183,13 @@ var StudentContentBody = function (_Component) {
             });
         }
     }, {
+        key: 'goToPage',
+        value: function goToPage(pageInfo) {
+            if (pageInfo) {
+                _common.goToPage.apply(this, [pageInfo, this.props.getProjectList])({}, this.props.successCallback, this.props.errorCallback);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this3 = this;
@@ -22119,7 +22197,8 @@ var StudentContentBody = function (_Component) {
             var _props = this.props,
                 panelHeader = _props.panelHeader,
                 tableData = _props.tableData,
-                buttonName = _props.buttonName;
+                buttonName = _props.buttonName,
+                projectNum = _props.projectNum;
             var tableHeader = tableData.tableHeader,
                 tableBody = tableData.tableBody;
             var projectList = tableBody.projectList,
@@ -22203,7 +22282,8 @@ var StudentContentBody = function (_Component) {
                                 );
                             })
                         )
-                    )
+                    ),
+                    _react2.default.createElement(_index.PageList, { current: 1, pageSize: 10, callback: this.goToPage.bind(this), total: projectNum })
                 ),
                 this.state.showCriteria && this.props.children
             );
@@ -22236,9 +22316,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _common = __webpack_require__(91);
-
-var _common2 = _interopRequireDefault(_common);
+var _common = __webpack_require__(59);
 
 __webpack_require__(344);
 
@@ -22267,7 +22345,7 @@ var StudentContentHeader = function (_Component) {
     _createClass(StudentContentHeader, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            _common2.default.call(this, 'studentBalance');
+            _common.setBalance.call(this, 'studentBalance');
         }
     }, {
         key: 'render',
@@ -22418,7 +22496,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchNoMineStudents = exports.fetchStudentList = undefined;
 
-var _ajax = __webpack_require__(59);
+var _ajax = __webpack_require__(60);
 
 /**
  * @description 获取学生列表
@@ -23612,7 +23690,7 @@ module.exports = function () { /* empty */ };
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(48);
+var toIObject = __webpack_require__(49);
 var toLength = __webpack_require__(165);
 var toAbsoluteIndex = __webpack_require__(402);
 module.exports = function (IS_INCLUDES) {
@@ -23671,7 +23749,7 @@ module.exports = function (it) {
 "use strict";
 
 var $defineProperty = __webpack_require__(40);
-var createDesc = __webpack_require__(67);
+var createDesc = __webpack_require__(68);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));
@@ -23684,9 +23762,9 @@ module.exports = function (object, index, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(66);
+var getKeys = __webpack_require__(67);
 var gOPS = __webpack_require__(101);
-var pIE = __webpack_require__(78);
+var pIE = __webpack_require__(79);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -23713,7 +23791,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(65);
+var Iterators = __webpack_require__(66);
 var ITERATOR = __webpack_require__(32)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -23758,7 +23836,7 @@ module.exports = function (iterator, fn, value, entries) {
 "use strict";
 
 var create = __webpack_require__(100);
-var descriptor = __webpack_require__(67);
+var descriptor = __webpack_require__(68);
 var setToStringTag = __webpack_require__(102);
 var IteratorPrototype = {};
 
@@ -23812,8 +23890,8 @@ module.exports = function (done, value) {
 /* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys = __webpack_require__(66);
-var toIObject = __webpack_require__(48);
+var getKeys = __webpack_require__(67);
+var toIObject = __webpack_require__(49);
 module.exports = function (object, el) {
   var O = toIObject(object);
   var keys = getKeys(O);
@@ -23828,9 +23906,9 @@ module.exports = function (object, el) {
 /* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(80)('meta');
-var isObject = __webpack_require__(64);
-var has = __webpack_require__(47);
+var META = __webpack_require__(81)('meta');
+var isObject = __webpack_require__(65);
+var has = __webpack_require__(48);
 var setDesc = __webpack_require__(40).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
@@ -23890,10 +23968,10 @@ var meta = module.exports = {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(66);
+var getKeys = __webpack_require__(67);
 var gOPS = __webpack_require__(101);
-var pIE = __webpack_require__(78);
-var toObject = __webpack_require__(79);
+var pIE = __webpack_require__(79);
+var toObject = __webpack_require__(80);
 var IObject = __webpack_require__(158);
 var $assign = Object.assign;
 
@@ -23930,9 +24008,9 @@ module.exports = !$assign || __webpack_require__(54)(function () {
 
 var dP = __webpack_require__(40);
 var anObject = __webpack_require__(53);
-var getKeys = __webpack_require__(66);
+var getKeys = __webpack_require__(67);
 
-module.exports = __webpack_require__(46) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(47) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -23948,7 +24026,7 @@ module.exports = __webpack_require__(46) ? Object.defineProperties : function de
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(48);
+var toIObject = __webpack_require__(49);
 var gOPN = __webpack_require__(161).f;
 var toString = {}.toString;
 
@@ -23990,7 +24068,7 @@ module.exports = function (KEY, exec) {
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
-var isObject = __webpack_require__(64);
+var isObject = __webpack_require__(65);
 var anObject = __webpack_require__(53);
 var check = function (O, proto) {
   anObject(O);
@@ -24057,7 +24135,7 @@ module.exports = function (index, length) {
 
 var classof = __webpack_require__(384);
 var ITERATOR = __webpack_require__(32)('iterator');
-var Iterators = __webpack_require__(65);
+var Iterators = __webpack_require__(66);
 module.exports = __webpack_require__(30).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -24073,7 +24151,7 @@ module.exports = __webpack_require__(30).getIteratorMethod = function (it) {
 
 var ctx = __webpack_require__(96);
 var $export = __webpack_require__(38);
-var toObject = __webpack_require__(79);
+var toObject = __webpack_require__(80);
 var call = __webpack_require__(390);
 var isArrayIter = __webpack_require__(388);
 var toLength = __webpack_require__(165);
@@ -24117,8 +24195,8 @@ $export($export.S + $export.F * !__webpack_require__(392)(function (iter) { Arra
 
 var addToUnscopables = __webpack_require__(382);
 var step = __webpack_require__(393);
-var Iterators = __webpack_require__(65);
-var toIObject = __webpack_require__(48);
+var Iterators = __webpack_require__(66);
+var toIObject = __webpack_require__(49);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -24175,7 +24253,7 @@ $export($export.S, 'Object', { create: __webpack_require__(100) });
 
 var $export = __webpack_require__(38);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(46), 'Object', { defineProperty: __webpack_require__(40).f });
+$export($export.S + $export.F * !__webpack_require__(47), 'Object', { defineProperty: __webpack_require__(40).f });
 
 
 /***/ }),
@@ -24183,7 +24261,7 @@ $export($export.S + $export.F * !__webpack_require__(46), 'Object', { defineProp
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = __webpack_require__(79);
+var toObject = __webpack_require__(80);
 var $getPrototypeOf = __webpack_require__(162);
 
 __webpack_require__(399)('getPrototypeOf', function () {
@@ -24216,15 +24294,15 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(400).set });
 
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(39);
-var has = __webpack_require__(47);
-var DESCRIPTORS = __webpack_require__(46);
+var has = __webpack_require__(48);
+var DESCRIPTORS = __webpack_require__(47);
 var $export = __webpack_require__(38);
 var redefine = __webpack_require__(164);
 var META = __webpack_require__(395).KEY;
 var $fails = __webpack_require__(54);
 var shared = __webpack_require__(104);
 var setToStringTag = __webpack_require__(102);
-var uid = __webpack_require__(80);
+var uid = __webpack_require__(81);
 var wks = __webpack_require__(32);
 var wksExt = __webpack_require__(108);
 var wksDefine = __webpack_require__(107);
@@ -24232,14 +24310,14 @@ var keyOf = __webpack_require__(394);
 var enumKeys = __webpack_require__(386);
 var isArray = __webpack_require__(389);
 var anObject = __webpack_require__(53);
-var toIObject = __webpack_require__(48);
+var toIObject = __webpack_require__(49);
 var toPrimitive = __webpack_require__(106);
-var createDesc = __webpack_require__(67);
+var createDesc = __webpack_require__(68);
 var _create = __webpack_require__(100);
 var gOPNExt = __webpack_require__(398);
 var $GOPD = __webpack_require__(160);
 var $DP = __webpack_require__(40);
-var $keys = __webpack_require__(66);
+var $keys = __webpack_require__(67);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -24363,7 +24441,7 @@ if (!USE_NATIVE) {
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
   __webpack_require__(161).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(78).f = $propertyIsEnumerable;
+  __webpack_require__(79).f = $propertyIsEnumerable;
   __webpack_require__(101).f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !__webpack_require__(99)) {
@@ -24471,7 +24549,7 @@ __webpack_require__(107)('observable');
 __webpack_require__(405);
 var global = __webpack_require__(39);
 var hide = __webpack_require__(55);
-var Iterators = __webpack_require__(65);
+var Iterators = __webpack_require__(66);
 var TO_STRING_TAG = __webpack_require__(32)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -26051,7 +26129,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dateCore = __webpack_require__(84);
+var _dateCore = __webpack_require__(85);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26409,7 +26487,7 @@ var _reactDom = __webpack_require__(20);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _dateCore = __webpack_require__(84);
+var _dateCore = __webpack_require__(85);
 
 var _DatePickerBox = __webpack_require__(289);
 
@@ -26419,7 +26497,7 @@ var _offset = __webpack_require__(36);
 
 var _dom = __webpack_require__(42);
 
-var _triggerBlank = __webpack_require__(68);
+var _triggerBlank = __webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26805,7 +26883,7 @@ var _DatePickerBox = __webpack_require__(289);
 
 var _DatePickerBox2 = _interopRequireDefault(_DatePickerBox);
 
-var _dateCore = __webpack_require__(84);
+var _dateCore = __webpack_require__(85);
 
 var _offset = __webpack_require__(36);
 
@@ -26817,7 +26895,7 @@ var _dom = __webpack_require__(42);
 
 var _outWindow = __webpack_require__(127);
 
-var _triggerBlank = __webpack_require__(68);
+var _triggerBlank = __webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28661,7 +28739,7 @@ var _PopoverBox2 = _interopRequireDefault(_PopoverBox);
 
 var _offset = __webpack_require__(36);
 
-var _triggerBlank = __webpack_require__(68);
+var _triggerBlank = __webpack_require__(69);
 
 var _assign = __webpack_require__(28);
 
@@ -29594,7 +29672,7 @@ var _offset = __webpack_require__(36);
 
 var _toArray = __webpack_require__(296);
 
-var _triggerBlank = __webpack_require__(68);
+var _triggerBlank = __webpack_require__(69);
 
 var _assign = __webpack_require__(28);
 
@@ -33683,7 +33761,7 @@ var _Frame = __webpack_require__(44);
 
 var _Frame2 = _interopRequireDefault(_Frame);
 
-var _donator = __webpack_require__(74);
+var _donator = __webpack_require__(75);
 
 var _DonatorContentHeader = __webpack_require__(323);
 
@@ -33693,9 +33771,7 @@ var _DonatorContentBody = __webpack_require__(322);
 
 var _DonatorContentBody2 = _interopRequireDefault(_DonatorContentBody);
 
-var _common = __webpack_require__(91);
-
-var _common2 = _interopRequireDefault(_common);
+var _common = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33724,7 +33800,7 @@ var DonatorHome = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getMyProjectList({ page: 0 })(this.successCallback.bind(this), this.errorCallback.bind(this));
-            _common2.default.call(this, 'donatorBalance');
+            _common.setBalance.call(this, 'donatorBalance');
         }
 
         // 获取我的项目列表
@@ -33786,7 +33862,7 @@ var DonatorHome = function (_Component) {
                 this.setState({
                     myProject: this.state.myProjects[index]
                 }, function () {
-                    _common2.default.call(_this2, 'donatorBalance');
+                    _common.setBalance.call(_this2, 'donatorBalance');
                 });
             }
         }
@@ -33801,12 +33877,14 @@ var DonatorHome = function (_Component) {
                         name: 'Project Name'
                     }, {
                         name: 'Create Time',
-                        sort: true
+                        sort: true,
+                        sortValue: 'createDate'
                     }, {
                         name: 'Key Word'
                     }, {
                         name: 'Balance',
-                        sort: true
+                        sort: true,
+                        sortValue: 'totalDonation'
                     }],
                     tableBody: {
                         projectList: this.state.myProjects,
@@ -33814,7 +33892,8 @@ var DonatorHome = function (_Component) {
                     }
                 },
                 buttonName: 'Donate Again',
-                balance: this.state.donatorBalance
+                balance: this.state.donatorBalance,
+                projectNum: this.state.projectNum
             };
 
             var callback = {
@@ -33876,11 +33955,9 @@ var _DonatorContentBody = __webpack_require__(322);
 
 var _DonatorContentBody2 = _interopRequireDefault(_DonatorContentBody);
 
-var _donator = __webpack_require__(74);
+var _donator = __webpack_require__(75);
 
-var _common = __webpack_require__(91);
-
-var _common2 = _interopRequireDefault(_common);
+var _common = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33909,7 +33986,7 @@ var DonatorProjects = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getAllProjectList({ page: 0 })(this.successCallback.bind(this), this.errorCallback.bind(this));
-            _common2.default.call(this, 'donatorBalance');
+            _common.setBalance.call(this, 'donatorBalance');
         }
 
         // 获取所有项目列表
@@ -33982,12 +34059,14 @@ var DonatorProjects = function (_Component) {
                         name: 'Creator'
                     }, {
                         name: 'Create Time',
-                        sort: true
+                        sort: true,
+                        sortValue: 'createDate'
                     }, {
                         name: 'Key Word'
                     }, {
                         name: 'Balance',
-                        sort: true
+                        sort: true,
+                        sortValue: 'totalDonation'
                     }],
                     tableBody: {
                         projectList: this.state.allProjects,
@@ -33995,7 +34074,8 @@ var DonatorProjects = function (_Component) {
                     }
                 },
                 buttonName: 'Donate',
-                balance: this.state.donatorBalance
+                balance: this.state.donatorBalance,
+                projectNum: this.state.projectNum
             };
 
             var callback = {
@@ -34049,9 +34129,9 @@ var _Frame = __webpack_require__(44);
 
 var _Frame2 = _interopRequireDefault(_Frame);
 
-var _donator = __webpack_require__(74);
+var _donator = __webpack_require__(75);
 
-var _reactRouter = __webpack_require__(52);
+var _reactRouter = __webpack_require__(46);
 
 __webpack_require__(622);
 
@@ -34066,6 +34146,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Option = _index.Select.Option;
+var ValidateGroup = _index.Validate.ValidateGroup;
 
 var ProjectInfoInput = function (_Component) {
     _inherits(ProjectInfoInput, _Component);
@@ -34121,32 +34202,32 @@ var ProjectInfoInput = function (_Component) {
             var _this2 = this;
 
             var majors = [{
-                name: '经济学',
-                value: '经济学'
+                name: 'Economics',
+                value: 'Economics'
             }, {
-                name: '法学',
-                value: '法学'
+                name: 'Law',
+                value: 'Law'
             }, {
-                name: '艺术',
-                value: '艺术'
+                name: 'Art',
+                value: 'Art'
             }, {
-                name: '哲学',
-                value: '哲学'
+                name: 'Philosophy',
+                value: 'Philosophy'
             }, {
-                name: '信息与计算机科学',
-                value: '信息与计算机科学'
+                name: 'Information and Computing Sciences',
+                value: 'Information and Computing Sciences'
             }, {
-                name: '电子科学与技术',
-                value: '电子科学与技术'
+                name: 'Electronic Science and Technology',
+                value: 'Electronic Science and Technology'
             }, {
-                name: '自动化',
-                value: '自动化'
+                name: 'Automation',
+                value: 'Automation'
             }, {
-                name: '会计学',
-                value: '会计学'
+                name: 'Accounting',
+                value: 'Accounting'
             }, {
-                name: '机械工程',
-                value: '机械工程'
+                name: 'Mechanical Engineering and Automation',
+                value: 'Mechanical Engineering and Automation'
             }];
 
             return _react2.default.createElement(
@@ -34159,7 +34240,7 @@ var ProjectInfoInput = function (_Component) {
                         _index.Panel,
                         { header: 'Project Information' },
                         _react2.default.createElement(
-                            'form',
+                            ValidateGroup,
                             { className: 'project-form' },
                             _react2.default.createElement(
                                 'div',
@@ -34169,9 +34250,13 @@ var ProjectInfoInput = function (_Component) {
                                     { htmlFor: 'projectName' },
                                     'Project Name'
                                 ),
-                                _react2.default.createElement(_index.Input, { name: 'projectName', type: 'text', placeholder: 'ProjectName', onChange: function onChange(e) {
-                                        return _this2.inputChange(e, 'projectName');
-                                    } })
+                                _react2.default.createElement(
+                                    _index.Validate,
+                                    { exgs: [{ regs: 'notempty', type: 'warning', info: 'projectName不能为空！' }] },
+                                    _react2.default.createElement(_index.Input, { name: 'projectName', type: 'text', placeholder: 'ProjectName', onChange: function onChange(e) {
+                                            return _this2.inputChange(e, 'projectName');
+                                        } })
+                                )
                             ),
                             _react2.default.createElement(
                                 'div',
@@ -34181,9 +34266,13 @@ var ProjectInfoInput = function (_Component) {
                                     { htmlFor: 'keyword' },
                                     'Key Word'
                                 ),
-                                _react2.default.createElement(_index.Input, { name: 'keyword', type: 'text', placeholder: 'Keyword', onChange: function onChange(e) {
-                                        return _this2.inputChange(e, 'keyword');
-                                    } })
+                                _react2.default.createElement(
+                                    _index.Validate,
+                                    { exgs: [{ regs: 'notempty', type: 'warning', info: 'keyword不能为空！' }] },
+                                    _react2.default.createElement(_index.Input, { name: 'keyword', type: 'text', placeholder: 'Keyword', onChange: function onChange(e) {
+                                            return _this2.inputChange(e, 'keyword');
+                                        } })
+                                )
                             ),
                             _react2.default.createElement(
                                 'div',
@@ -34193,9 +34282,13 @@ var ProjectInfoInput = function (_Component) {
                                     { htmlFor: 'totalDonation' },
                                     'Total Donation'
                                 ),
-                                _react2.default.createElement(_index.Input, { name: 'totalDonation', type: 'text', placeholder: 'Total Donation', onChange: function onChange(e) {
-                                        return _this2.inputChange(e, 'totalDonation');
-                                    } })
+                                _react2.default.createElement(
+                                    _index.Validate,
+                                    { exgs: [{ regx: '^[1-9]\\d*$', type: 'danger', info: '请输入正整数！' }, { regs: 'notempty', type: 'warning', info: 'totalDonation不能为空！' }] },
+                                    _react2.default.createElement(_index.Input, { name: 'totalDonation', type: 'text', placeholder: 'Total Donation', onChange: function onChange(e) {
+                                            return _this2.inputChange(e, 'totalDonation');
+                                        } })
+                                )
                             ),
                             _react2.default.createElement(
                                 'div',
@@ -34205,9 +34298,13 @@ var ProjectInfoInput = function (_Component) {
                                     { htmlFor: 'Count' },
                                     'Count'
                                 ),
-                                _react2.default.createElement(_index.Input, { name: 'count', type: 'text', placeholder: 'Count', onChange: function onChange(e) {
-                                        return _this2.inputChange(e, 'count');
-                                    } })
+                                _react2.default.createElement(
+                                    _index.Validate,
+                                    { exgs: [{ regx: '^[1-9]\\d*$', type: 'danger', info: '请输入正整数！' }, { regs: 'notempty', type: 'warning', info: 'count不能为空！' }] },
+                                    _react2.default.createElement(_index.Input, { name: 'count', type: 'text', placeholder: 'Count', onChange: function onChange(e) {
+                                            return _this2.inputChange(e, 'count');
+                                        } })
+                                )
                             ),
                             _react2.default.createElement(
                                 'div',
@@ -34228,9 +34325,13 @@ var ProjectInfoInput = function (_Component) {
                                             { htmlFor: 'ageMax' },
                                             'Age Max'
                                         ),
-                                        _react2.default.createElement(_index.Input, { name: 'ageMax', type: 'text', placeholder: 'Age Max', onChange: function onChange(e) {
-                                                return _this2.inputChange(e, 'maxAge');
-                                            } })
+                                        _react2.default.createElement(
+                                            _index.Validate,
+                                            { exgs: [{ regx: '^[1-9]\\d*$', type: 'danger', info: '请输入正整数！' }, { regs: 'notempty', type: 'warning', info: 'maxAge不能为空！' }] },
+                                            _react2.default.createElement(_index.Input, { name: 'ageMax', type: 'text', placeholder: 'Age Max', onChange: function onChange(e) {
+                                                    return _this2.inputChange(e, 'maxAge');
+                                                } })
+                                        )
                                     ),
                                     _react2.default.createElement(
                                         'div',
@@ -34241,15 +34342,19 @@ var ProjectInfoInput = function (_Component) {
                                             'Major'
                                         ),
                                         _react2.default.createElement(
-                                            _index.Select,
-                                            { trigger: 'click', placeholder: '\u8BF7\u9009\u62E9', onChange: this.selectChange.bind(this) },
-                                            majors && majors.length && majors.map(function (major, index) {
-                                                return _react2.default.createElement(
-                                                    Option,
-                                                    { key: index, value: major.value },
-                                                    major.name
-                                                );
-                                            })
+                                            _index.Validate,
+                                            { exgs: [{ regs: 'notempty', type: 'warning', info: 'major不能为空！' }] },
+                                            _react2.default.createElement(
+                                                _index.Select,
+                                                { trigger: 'click', placeholder: 'Major', onChange: this.selectChange.bind(this) },
+                                                majors && majors.length && majors.map(function (major, index) {
+                                                    return _react2.default.createElement(
+                                                        Option,
+                                                        { key: index, value: major.value },
+                                                        major.name
+                                                    );
+                                                })
+                                            )
                                         )
                                     ),
                                     _react2.default.createElement(
@@ -34260,9 +34365,13 @@ var ProjectInfoInput = function (_Component) {
                                             { htmlFor: 'minGPA' },
                                             'min GPA'
                                         ),
-                                        _react2.default.createElement(_index.Input, { name: 'minGPA', type: 'text', placeholder: 'Min GPA', onChange: function onChange(e) {
-                                                return _this2.inputChange(e, 'minGPA');
-                                            } })
+                                        _react2.default.createElement(
+                                            _index.Validate,
+                                            { exgs: [{ regx: '^[1-9]\\d*(\.\\d{1})?$', type: 'danger', info: '正整数或只有一位的小数！' }, { regs: 'notempty', type: 'warning', info: 'min GPA不能为空！' }] },
+                                            _react2.default.createElement(_index.Input, { name: 'minGPA', type: 'text', placeholder: 'Min GPA', onChange: function onChange(e) {
+                                                    return _this2.inputChange(e, 'minGPA');
+                                                } })
+                                        )
                                     ),
                                     _react2.default.createElement(
                                         'div',
@@ -34272,9 +34381,13 @@ var ProjectInfoInput = function (_Component) {
                                             { htmlFor: 'rank' },
                                             'Rank'
                                         ),
-                                        _react2.default.createElement(_index.Input, { name: 'rank', type: 'text', placeholder: 'Rank', onChange: function onChange(e) {
-                                                return _this2.inputChange(e, 'rank');
-                                            } })
+                                        _react2.default.createElement(
+                                            _index.Validate,
+                                            { exgs: [{ regx: '^[1-9]\\d*$', type: 'danger', info: '请输入正整数！' }, { regs: 'notempty', type: 'warning', info: 'rank不能为空！' }] },
+                                            _react2.default.createElement(_index.Input, { name: 'rank', type: 'text', placeholder: 'Rank', onChange: function onChange(e) {
+                                                    return _this2.inputChange(e, 'rank');
+                                                } })
+                                        )
                                     )
                                 )
                             ),
@@ -34470,10 +34583,16 @@ var StudentHome = function (_Component) {
                         columnName: ['projectName', 'keyWord', 'verifyPassTime', 'benefit']
                     }
                 },
-                buttonName: '查看条件'
+                buttonName: '查看条件',
+                projectNum: this.state.projectNum
             };
 
             var projectCriteria = this.state.projectCriteria;
+
+            var callback = {
+                successCallback: this.successCallback.bind(this),
+                errorCallback: this.errorCallback.bind(this)
+            };
 
             return _react2.default.createElement(
                 _Frame2.default,
@@ -34484,7 +34603,7 @@ var StudentHome = function (_Component) {
                     _react2.default.createElement(_StudentContentHeader2.default, { projectNum: this.state.projectNum }),
                     _react2.default.createElement(
                         _StudentContentBody2.default,
-                        _extends({}, optionInfo, { showCriteriaData: this.showCriteriaData.bind(this) }),
+                        _extends({}, optionInfo, { showCriteriaData: this.showCriteriaData.bind(this) }, callback, { getProjectList: this.getSuccessApplyList.bind(this) }),
                         _react2.default.createElement(
                             _index.Panel,
                             { header: 'Criteria Document', className: 'criteria-document' },
@@ -34573,7 +34692,7 @@ var _Frame2 = _interopRequireDefault(_Frame);
 
 var _student = __webpack_require__(144);
 
-var _reactRouter = __webpack_require__(52);
+var _reactRouter = __webpack_require__(46);
 
 __webpack_require__(342);
 
@@ -34588,6 +34707,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Option = _index.Select.Option;
+var ValidateGroup = _index.Validate.ValidateGroup;
 
 var StudentInfoInput = function (_React$Component) {
     _inherits(StudentInfoInput, _React$Component);
@@ -34669,32 +34789,32 @@ var StudentInfoInput = function (_React$Component) {
             var _this2 = this;
 
             var majors = [{
-                name: '经济学',
-                value: '经济学'
+                name: 'Economics',
+                value: 'Economics'
             }, {
-                name: '法学',
-                value: '法学'
+                name: 'Law',
+                value: 'Law'
             }, {
-                name: '艺术',
-                value: '艺术'
+                name: 'Art',
+                value: 'Art'
             }, {
-                name: '哲学',
-                value: '哲学'
+                name: 'Philosophy',
+                value: 'Philosophy'
             }, {
-                name: '信息与计算机科学',
-                value: '信息与计算机科学'
+                name: 'Information and Computing Sciences',
+                value: 'Information and Computing Sciences'
             }, {
-                name: '电子科学与技术',
-                value: '电子科学与技术'
+                name: 'Electronic Science and Technology',
+                value: 'Electronic Science and Technology'
             }, {
-                name: '自动化',
-                value: '自动化'
+                name: 'Automation',
+                value: 'Automation'
             }, {
-                name: '会计学',
-                value: '会计学'
+                name: 'Accounting',
+                value: 'Accounting'
             }, {
-                name: '机械工程',
-                value: '机械工程'
+                name: 'Mechanical Engineering and Automation',
+                value: 'Mechanical Engineering and Automation'
             }];
 
             return _react2.default.createElement(
@@ -34707,7 +34827,7 @@ var StudentInfoInput = function (_React$Component) {
                         _index.Panel,
                         { header: 'Student Information' },
                         _react2.default.createElement(
-                            'form',
+                            ValidateGroup,
                             { className: 'student-form' },
                             _react2.default.createElement(
                                 'div',
@@ -34720,9 +34840,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'firstName' },
                                         'First Name'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'firstName', type: 'text', placeholder: 'FirstName', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'firstName');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'notempty', type: 'warning', info: 'firstName不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'firstName', type: 'text', placeholder: 'FirstName', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'firstName');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34732,9 +34856,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'lastName' },
                                         'Last Name'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'lastName', type: 'text', placeholder: 'LastName', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'lastName');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'notempty', type: 'warning', info: 'lastName不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'lastName', type: 'text', placeholder: 'LastName', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'lastName');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34744,9 +34872,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'username' },
                                         'Username'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'username', type: 'text', placeholder: 'Username', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'userName');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'username', type: 'danger', info: '请输入有效用户名！' }, { regs: 'notempty', type: 'warning', info: 'username不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'username', type: 'text', placeholder: 'Username', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'userName');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34756,9 +34888,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'password' },
                                         'Password'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'password', type: 'password', placeholder: 'Password', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'password');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'password', type: 'danger', info: '请输入有效密码！' }, { regs: 'notempty', type: 'warning', info: 'password不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'password', type: 'password', placeholder: 'Password', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'password');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34768,7 +34904,11 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'birth' },
                                         'Birth'
                                     ),
-                                    _react2.default.createElement(_index.DatePicker, { size: 'md', defaultValue: '', placeholder: 'Birth', format: 'yyyy-mm-dd', onChange: this.selectBirth.bind(this) })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'notempty', type: 'warning', info: 'birth不能为空！' }] },
+                                        _react2.default.createElement(_index.DatePicker, { size: 'md', defaultValue: '', placeholder: 'Birth', format: 'yyyy-mm-dd', onChange: this.selectBirth.bind(this) })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34779,16 +34919,20 @@ var StudentInfoInput = function (_React$Component) {
                                         'Major'
                                     ),
                                     _react2.default.createElement(
-                                        _index.Select,
-                                        { defaultValue: 'Computer Science', trigger: 'click', style: { width: 275 }, placeholder: 'Major', onChange: this.selectMajor.bind(this) },
-                                        majors && majors.length > 0 && majors.map(function (major, index) {
-                                            return _react2.default.createElement(
-                                                Option,
-                                                { key: index, value: major.value },
-                                                ' ',
-                                                major.name
-                                            );
-                                        })
+                                        _index.Validate,
+                                        { exgs: [{ regs: 'notempty', type: 'warning', info: 'major不能为空！' }] },
+                                        _react2.default.createElement(
+                                            _index.Select,
+                                            { defaultValue: 'Computer Science', trigger: 'click', style: { width: 275 }, placeholder: 'Major', onChange: this.selectMajor.bind(this) },
+                                            majors && majors.length > 0 && majors.map(function (major, index) {
+                                                return _react2.default.createElement(
+                                                    Option,
+                                                    { key: index, value: major.value },
+                                                    ' ',
+                                                    major.name
+                                                );
+                                            })
+                                        )
                                     )
                                 ),
                                 _react2.default.createElement(
@@ -34799,9 +34943,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'gpa' },
                                         'GPA'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'gpa', type: 'text', placeholder: 'GPA', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'gpa');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regx: '^[1-9]\\d*(\.\\d{1})?$', type: 'danger', info: '正整数或只有一位的小数！' }, { regs: 'notempty', type: 'warning', info: 'gpa不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'gpa', type: 'text', placeholder: 'GPA', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'gpa');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     'div',
@@ -34811,9 +34959,13 @@ var StudentInfoInput = function (_React$Component) {
                                         { htmlFor: 'rank' },
                                         'Rank'
                                     ),
-                                    _react2.default.createElement(_index.Input, { name: 'rank', type: 'text', placeholder: 'Rank', onChange: function onChange(e) {
-                                            return _this2.inputChange(e, 'rank');
-                                        } })
+                                    _react2.default.createElement(
+                                        _index.Validate,
+                                        { exgs: [{ regx: '^[1-9]\\d*$', type: 'danger', info: '请输入正整数！' }, { regs: 'notempty', type: 'warning', info: 'rank不能为空！' }] },
+                                        _react2.default.createElement(_index.Input, { name: 'rank', type: 'text', placeholder: 'Rank', onChange: function onChange(e) {
+                                                return _this2.inputChange(e, 'rank');
+                                            } })
+                                    )
                                 ),
                                 _react2.default.createElement(
                                     _index.Button,
@@ -35197,10 +35349,16 @@ var StudentProjects = function (_Component) {
                         columnName: ['projectName', 'keyword', 'creator-userName', 'totalDonation', 'createDate']
                     }
                 },
-                buttonName: '比较条件'
+                buttonName: '比较条件',
+                projectNum: this.state.projectNum
             };
 
             var projectCriteria = this.state.projectCriteria;
+
+            var callback = {
+                successCallback: this.successCallback.bind(this),
+                errorCallback: this.errorCallback.bind(this)
+            };
 
             return _react2.default.createElement(
                 _Frame2.default,
@@ -35211,7 +35369,7 @@ var StudentProjects = function (_Component) {
                     _react2.default.createElement(_StudentContentHeader2.default, { projectNum: this.state.projectNum }),
                     _react2.default.createElement(
                         _StudentContentBody2.default,
-                        _extends({}, optionInfo, { showCriteriaData: this.showCriteriaData.bind(this), setProjectId: this.setProjectId.bind(this) }),
+                        _extends({}, optionInfo, { showCriteriaData: this.showCriteriaData.bind(this), setProjectId: this.setProjectId.bind(this) }, callback, { getProjectList: this.getNoApplyList.bind(this) }),
                         _react2.default.createElement(
                             "div",
                             { className: "contrast-info" },
@@ -35383,7 +35541,7 @@ var _index = __webpack_require__(23);
 
 var _teacher = __webpack_require__(327);
 
-var _util = __webpack_require__(75);
+var _util = __webpack_require__(76);
 
 __webpack_require__(343);
 
@@ -35758,7 +35916,7 @@ var _index = __webpack_require__(23);
 
 var _teacher = __webpack_require__(327);
 
-var _util = __webpack_require__(75);
+var _util = __webpack_require__(76);
 
 __webpack_require__(343);
 
@@ -36175,7 +36333,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(52);
+var _reactRouter = __webpack_require__(46);
 
 var _storage = __webpack_require__(92);
 
@@ -36327,7 +36485,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(52);
+var _reactRouter = __webpack_require__(46);
 
 var _App = __webpack_require__(576);
 
@@ -36479,7 +36637,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ajax = __webpack_require__(59);
+var _ajax = __webpack_require__(60);
 
 function login(param) {
     return (0, _ajax.AJAX)({
@@ -36508,7 +36666,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ajax = __webpack_require__(59);
+var _ajax = __webpack_require__(60);
 
 function register(param) {
     return (0, _ajax.AJAX)({
@@ -36735,7 +36893,7 @@ var _login3 = _interopRequireDefault(_login2);
 
 var _storage = __webpack_require__(92);
 
-var _reactRouter = __webpack_require__(52);
+var _reactRouter = __webpack_require__(46);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36840,11 +36998,11 @@ var LoginForm = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'no-account-box' },
-                        '\u6CA1\u6709\u8D26\u6237?\u8BF7',
+                        'No Account? Please',
                         _react2.default.createElement(
                             'a',
                             { href: '#/register' },
-                            '\u6CE8\u518C'
+                            'register'
                         )
                     )
                 )
@@ -36958,6 +37116,8 @@ var _register = __webpack_require__(575);
 
 var _register2 = _interopRequireDefault(_register);
 
+var _reactRouter = __webpack_require__(46);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -37017,10 +37177,30 @@ var RegisterForm = function (_React$Component) {
     }, {
         key: 'regSubmit',
         value: function regSubmit() {
-            if (this.state.formData.userName && this.state.formData.password && this.state.formData.linkPass) {
-                (0, _register2.default)(this.state.formData).then(function (res) {
+            var formData = this.state.formData;
+
+            if (this.repeatValue.pwdRepeat !== formData.password) {
+                _index.Tip.error('再次密码输入不一致！');
+                return;
+            }
+
+            if (this.repeatValue.linkPassRepeat !== formData.linkPass) {
+                _index.Tip.error('再次密码输入不一致！');
+                return;
+            }
+
+            if (formData.userName && formData.password && formData.linkPass) {
+                (0, _register2.default)(formData).then(function (res) {
                     if (res.status === 'SUCCESS' && res.result) {
-                        console.log('res:', res);
+                        _reactRouter.hashHistory.push('/login');
+                    }
+
+                    if (res.status === 'ERROR') {
+                        if (res.info) {
+                            console.error('REGISTER-FORM', res.info);
+                        } else {
+                            console.error('注册错误！');
+                        }
                     }
                 });
             }
@@ -37068,12 +37248,20 @@ var RegisterForm = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'base-coin', style: { display: this.state.nextShow ? 'block' : 'none' } },
-                        _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
-                                return _this2.inputChange(e, 'linkPass');
-                            }, name: 'basecoinPwd', type: 'password', placeholder: 'baseCoinPwd', block: 'true' }),
-                        _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
-                                return _this2.inputChange(e, 'linkPassRepeat');
-                            }, name: 'linkPassRepeat', type: 'password', placeholder: 'Repeat', block: 'true' }),
+                        _react2.default.createElement(
+                            _index.Validate,
+                            { exgs: [{ regs: 'notempty', type: 'warning', info: '不能为空！' }] },
+                            _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
+                                    return _this2.inputChange(e, 'linkPass');
+                                }, name: 'basecoinPwd', type: 'password', placeholder: 'baseCoinPwd', block: 'true' })
+                        ),
+                        _react2.default.createElement(
+                            _index.Validate,
+                            { exgs: [{ regs: 'notempty', type: 'warning', info: '不能为空！' }] },
+                            _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
+                                    return _this2.inputChange(e, 'linkPassRepeat');
+                                }, name: 'linkPassRepeat', type: 'password', placeholder: 'Repeat', block: 'true' })
+                        ),
                         _react2.default.createElement(
                             _index.Button,
                             { block: 'true', onClick: this.regSubmit.bind(this) },
