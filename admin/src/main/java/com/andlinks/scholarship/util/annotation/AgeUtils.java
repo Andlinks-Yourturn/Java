@@ -20,7 +20,6 @@ public class AgeUtils {
             age = now.get(Calendar.YEAR) - born.get(Calendar.YEAR);
             int nowDayOfYear = now.get(Calendar.DAY_OF_YEAR);
             int bornDayOfYear = born.get(Calendar.DAY_OF_YEAR);
-            System.out.println("nowDayOfYear:" + nowDayOfYear + " bornDayOfYear:" + bornDayOfYear);
             if (nowDayOfYear < bornDayOfYear) {
                 age -= 1;
             }

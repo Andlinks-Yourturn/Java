@@ -7951,7 +7951,7 @@ exports = module.exports = __webpack_require__(21)();
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.app-donator .project-info-input {\n  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.3); }\n  .app-donator .project-info-input .mt-panel-h2 {\n    color: #8699B0; }\n  .app-donator .project-info-input .project-form {\n    text-align: center; }\n    .app-donator .project-info-input .project-form label {\n      height: 1.7rem;\n      line-height: 1.7rem;\n      display: inline-block;\n      text-align: left;\n      width: 10rem; }\n    .app-donator .project-info-input .project-form .mt-input {\n      border-color: #D3E1FF;\n      border-radius: 3px; }\n      .app-donator .project-info-input .project-form .mt-input input {\n        width: 265px;\n        height: 1.5rem;\n        line-height: 1;\n        padding-left: 0.4rem;\n        font-size: 0.7rem;\n        color: rgba(0, 0, 0, 0.5); }\n    .app-donator .project-info-input .project-form .mt-select-input {\n      text-align: left;\n      border-color: #D3E1FF;\n      height: 1.8rem;\n      padding: 2px 4px;\n      padding-left: 0.6rem;\n      color: rgba(0, 0, 0, 0.5); }\n      .app-donator .project-info-input .project-form .mt-select-input .iconfont {\n        color: #5585FE; }\n    .app-donator .project-info-input .project-form > div {\n      margin-bottom: 1.8rem; }\n    .app-donator .project-info-input .project-form .criteria-list > label,\n    .app-donator .project-info-input .project-form .criteria-list > div {\n      display: inline-block;\n      vertical-align: top; }\n    .app-donator .project-info-input .project-form .criteria-list .criteria-box {\n      width: 275px; }\n    .app-donator .project-info-input .project-form .criteria-list .criteria-item {\n      display: -webkit-flex;\n      /* Safari，Chrome */\n      display: flex;\n      margin-bottom: 1.1rem; }\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item label {\n        flex: 1; }\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-select-input,\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-input {\n        width: 8rem; }\n        .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-select-input input,\n        .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-input input {\n          width: 100%; }\n    .app-donator .project-info-input .project-form .create-btn {\n      width: 10rem;\n      padding: 15px;\n      color: #fff;\n      background-color: #5585FE;\n      border-radius: 3px;\n      font-size: 0.8rem;\n      margin-top: 3.5rem; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.app-donator .project-info-input {\n  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.3); }\n  .app-donator .project-info-input .mt-panel-h2 {\n    color: #8699B0; }\n  .app-donator .project-info-input .project-form {\n    text-align: center; }\n    .app-donator .project-info-input .project-form label {\n      height: 1.7rem;\n      line-height: 1.7rem;\n      display: inline-block;\n      text-align: left;\n      width: 10rem; }\n    .app-donator .project-info-input .project-form .mt-input {\n      border-color: #D3E1FF;\n      border-radius: 3px; }\n      .app-donator .project-info-input .project-form .mt-input input {\n        width: 265px;\n        height: 1.5rem;\n        line-height: 1;\n        padding-left: 0.4rem;\n        font-size: 0.7rem;\n        color: rgba(0, 0, 0, 0.5); }\n    .app-donator .project-info-input .project-form .mt-select-input {\n      text-align: left;\n      border-color: #D3E1FF;\n      height: 1.8rem;\n      padding: 2px 4px;\n      padding-left: 0.6rem;\n      color: rgba(0, 0, 0, 0.5); }\n      .app-donator .project-info-input .project-form .mt-select-input .iconfont {\n        color: #5585FE; }\n    .app-donator .project-info-input .project-form > div {\n      margin-bottom: 1.8rem; }\n    .app-donator .project-info-input .project-form .criteria-list > label,\n    .app-donator .project-info-input .project-form .criteria-list > div {\n      display: inline-block;\n      vertical-align: top; }\n    .app-donator .project-info-input .project-form .criteria-list .criteria-box {\n      width: 275px; }\n    .app-donator .project-info-input .project-form .criteria-list .criteria-item {\n      display: -webkit-flex;\n      /* Safari，Chrome */\n      display: flex;\n      margin-bottom: 1.1rem; }\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item label {\n        flex: 1; }\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-select-input,\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-input {\n        width: 8rem; }\n        .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-select-input input,\n        .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-input input {\n          width: 100%; }\n      .app-donator .project-info-input .project-form .criteria-list .criteria-item .mt-select-input > span:first-child {\n        white-space: nowrap;\n        text-overflow: ellipsis;\n        overflow: hidden;\n        display: block;\n        position: relative;\n        top: -23px; }\n    .app-donator .project-info-input .project-form .create-btn {\n      width: 10rem;\n      padding: 15px;\n      color: #fff;\n      background-color: #5585FE;\n      border-radius: 3px;\n      font-size: 0.8rem;\n      margin-top: 3.5rem; }\n", ""]);
 
 // exports
 
@@ -20327,17 +20327,17 @@ var DatePickerBox = function (_Component) {
                     _react2.default.createElement(
                         'a',
                         { onClick: this.clickNowDay.bind(this), className: 'mt-date-btn-now' },
-                        '\u4ECA\u5929'
+                        'today'
                     ),
                     this.props.mid.indexOf('start') === -1 ? _react2.default.createElement(
                         'a',
                         { onClick: this.clickOk.bind(this), className: 'mt-btn-xs mt-btn-primary mt-date-btn-ok' },
-                        '\u786E\u5B9A'
+                        'confirm'
                     ) : null,
                     this.props.mid.indexOf('start') === -1 ? _react2.default.createElement(
                         'a',
                         { onClick: this.clearDate.bind(this), className: 'mt-btn-xs mt-btn-warning mt-date-btn-clear' },
-                        '\u6E05\u9664'
+                        'clear'
                     ) : null
                 )
             );
@@ -21874,8 +21874,8 @@ var DonatorContentBody = function (_Component) {
                             'div',
                             { className: 'panel-body' },
                             _react2.default.createElement(_index.Input, { name: 'projectName', disabled: 'true', value: this.state.checkedProject ? this.state.checkedProject.projectName : '' }),
-                            _react2.default.createElement(_index.Input, { name: 'myBalance', disabled: 'true', value: '\u4F59\u989D:' + (balance || 0) }),
-                            _react2.default.createElement(_index.Input, { name: 'amount', placeholder: '(\u4EFD\u6570)', type: 'text', onChange: function onChange(e) {
+                            _react2.default.createElement(_index.Input, { name: 'myBalance', disabled: 'true', value: 'balance:' + (balance || 0) }),
+                            _react2.default.createElement(_index.Input, { name: 'amount', placeholder: '(block)', type: 'text', onChange: function onChange(e) {
                                     return _this4.inputChange(e, 'amount');
                                 }, value: this.state.formData.amount || '' }),
                             _react2.default.createElement(_index.Input, { name: 'password', placeholder: 'Password', type: 'password', onChange: function onChange(e) {
@@ -26143,7 +26143,7 @@ var DatePickerBoxDay = function (_Component) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (DatePickerBoxDay.__proto__ || (0, _getPrototypeOf2.default)(DatePickerBoxDay)).call(this, props));
 
         _this.state = {
-            setWeek: ['日', '一', '二', '三', '四', '五', '六']
+            setWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
         };
         return _this;
     }
@@ -26310,7 +26310,7 @@ var DatePickerBoxMonth = function (_Component) {
 									'a',
 									null,
 									elem.month,
-									'\u6708'
+									'Mo'
 								)
 							);
 						})
@@ -28366,7 +28366,7 @@ var PageList = function (_React$Component) {
                 _react2.default.createElement(
                     'a',
                     { className: 'mt-btn mt-pagelist-prev', onClick: this.prevPage.bind(this) },
-                    '\u4E0A\u4E00\u9875'
+                    'Prev'
                 ),
                 _react2.default.createElement(
                     'div',
@@ -28417,7 +28417,7 @@ var PageList = function (_React$Component) {
                 _react2.default.createElement(
                     'a',
                     { className: 'mt-btn mt-pagelist-next', onClick: this.nextPage.bind(this) },
-                    '\u4E0B\u4E00\u9875'
+                    'Next'
                 )
             );
         }
@@ -34346,7 +34346,7 @@ var ProjectInfoInput = function (_Component) {
                                             { exgs: [{ regs: 'notempty', type: 'warning', info: 'major不能为空！' }] },
                                             _react2.default.createElement(
                                                 _index.Select,
-                                                { trigger: 'click', placeholder: 'Major', onChange: this.selectChange.bind(this) },
+                                                { trigger: 'click', placeholder: 'Major', onChange: this.selectChange.bind(this), style: { width: 160 } },
                                                 majors && majors.length && majors.map(function (major, index) {
                                                     return _react2.default.createElement(
                                                         Option,
@@ -34583,7 +34583,7 @@ var StudentHome = function (_Component) {
                         columnName: ['projectName', 'keyWord', 'verifyPassTime', 'benefit']
                     }
                 },
-                buttonName: '查看条件',
+                buttonName: 'Who is eligible',
                 projectNum: this.state.projectNum
             };
 
@@ -35289,11 +35289,11 @@ var StudentProjects = function (_Component) {
                 }).then(function (res) {
                     if (res && res.status === 'SUCCESS' && res.result) {
                         if (res.result.status === 'success') {
-                            _this2.state.applyResult = '申请成功!';
+                            _this2.state.applyResult = 'Apply Success!';
                             _this2.state.showApplyBtn = false;
                         }
                         if (res.result.status === 'failure') {
-                            _this2.state.applyResult = '申请失败!';
+                            _this2.state.applyResult = 'Apply Failure!';
                         }
 
                         _this2.setState({
@@ -35349,7 +35349,7 @@ var StudentProjects = function (_Component) {
                         columnName: ['projectName', 'keyword', 'creator-userName', 'totalDonation', 'createDate']
                     }
                 },
-                buttonName: '比较条件',
+                buttonName: 'contrast',
                 projectNum: this.state.projectNum
             };
 
@@ -36911,17 +36911,17 @@ var LoginForm = function (_React$Component) {
     function LoginForm(props) {
         _classCallCheck(this, LoginForm);
 
-        var _this = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
 
-        _this.state = {
+        _this2.state = {
             formData: {
                 account: '',
                 password: ''
             }
         };
-        _this.inputChange = _this.inputChange.bind(_this);
-        _this.homePages = { donor: '/donator/home', teacher: '/teacher/home', student: '/student/home' };
-        return _this;
+        _this2.inputChange = _this2.inputChange.bind(_this2);
+        _this2.homePages = { donor: '/donator/home', teacher: '/teacher/home', student: '/student/home' };
+        return _this2;
     }
 
     _createClass(LoginForm, [{
@@ -36937,7 +36937,7 @@ var LoginForm = function (_React$Component) {
     }, {
         key: 'login',
         value: function login() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.state.formData.account && this.state.formData.password) {
                 (0, _login3.default)(this.state.formData).then(function (res) {
@@ -36948,7 +36948,7 @@ var LoginForm = function (_React$Component) {
 
                         (0, _storage.setLocal)('userInfo', res.result);
                         if (res.result.userType) {
-                            _reactRouter.hashHistory.push(_this2.homePages[res.result.userType]);
+                            _reactRouter.hashHistory.push(_this3.homePages[res.result.userType]);
                         }
                     }
 
@@ -36963,9 +36963,48 @@ var LoginForm = function (_React$Component) {
             }
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this4 = this;
+
+            if (document.addEventListener) {
+                document.body.addEventListener('keyup', function (e) {
+                    if (e.keyCode === 13) {
+                        // 回车事件
+                        _this4.login();
+                    }
+                });
+            }
+
+            if (document.attachEvent) {
+                document.body.attachEvent('onkeyup', function (e) {
+                    if (e.keyCode === 13) {
+                        // 回车事件
+                        _this4.login();
+                    }
+                });
+            }
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            if (document.removeEventListener) {
+                document.body.removeEventListener('keyup', function () {});
+            }
+
+            if (document.detachEvent) {
+                var _this = this;
+                document.body.detachEvent('onkeyup', function (e) {
+                    if (e.keyCode === 13) {
+                        _this.login();
+                    }
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -36985,10 +37024,10 @@ var LoginForm = function (_React$Component) {
                     'form',
                     { className: 'form-box' },
                     _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
-                            return _this3.inputChange(e, 'account');
+                            return _this5.inputChange(e, 'account');
                         }, name: 'username', type: 'text', placeholder: 'Username', block: 'true' }),
                     _react2.default.createElement(_index.Input, { onChange: function onChange(e) {
-                            return _this3.inputChange(e, 'password');
+                            return _this5.inputChange(e, 'password');
                         }, name: 'password', type: 'password', placeholder: 'Password', block: 'true' }),
                     _react2.default.createElement(
                         _index.Button,

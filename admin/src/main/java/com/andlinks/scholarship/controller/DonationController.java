@@ -227,7 +227,13 @@ public class DonationController {
                     strSets.add(json.getString("Output"));
                 }
                 for(String s:strSets){
-                    UserProfileDO userProfileDO=userProfileService.findByAddress(s);
+                    UserProfileDO userProfileDO= null;
+                    try {
+                        userProfileDO = userProfileService.findByAddress(s);
+                        if(userProfileDO==null)continue;
+                    } catch (Exception e) {
+                        logger.info("没有找到");
+                    }
                     BenefitStudentVO svo=new BenefitStudentVO();
                     svo.setUserName(userProfileDO.getUserName());
                     CompareVO compareVO=new CompareVO(userProfileDO.getAge(),userProfileDO.getMajor(),userProfileDO.getRank(),userProfileDO.getGpa());
